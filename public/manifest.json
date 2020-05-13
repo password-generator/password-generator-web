@@ -1,0 +1,12 @@
+{
+  "short_name": "Password-Generator",
+  "name": "Password-Generator",
+  "icons": [
+    {
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
