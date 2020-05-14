@@ -1,3 +1,7 @@
 body {
   margin: 0;
+  background-color: #7159c1;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
 }

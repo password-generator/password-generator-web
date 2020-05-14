@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './Password.css'
+
 export default class Password extends React.Component {
     // construtor com o que vai usar na página //
     constructor(props) {
@@ -62,7 +64,7 @@ export default class Password extends React.Component {
     // aqui ele vai renderizar os elementos do "HTML" //
     render() {
         return (
-            <div>
+            <div className="container" >
                 <h2>Password Generator</h2>
 		<p>Password: {this.state.password}</p>
                 <div>
