@@ -17,12 +17,9 @@ export default class Password extends React.Component {
             numbers: true,
             symbols: false
         };
-
         // como se fosse uma função de onchance comum do HTML //
         this.handleChange = this.handleChange.bind(this);
-
     }
-
     // aqui vai a lógica da página, suas funções //
 
     // função onChange, ativada quando muda algo no input ou quando o botão é clicado //
@@ -31,7 +28,7 @@ export default class Password extends React.Component {
            como são vários valores é preciso de um if verificando o id */
         let id = event.target.id;
 	if (id === 'buttom_generate') {
- 	    this.setState({ password: this.generatePassword() })
+ 	    this.setState({ password: this.generatePassword() });
 	}
         if (id === 'number_password_lenght') {
             this.setState({ password_lenght: event.target.value });
@@ -56,10 +53,10 @@ export default class Password extends React.Component {
     // função generatePassword, ativada pelo handleChange ao clicar no botão //
     generatePassword() {
 	if (Number(this.state.password_lenght > 20 || this.state.password_lenght < 6)) {
-	    alert('Invalid password lenght!')
-	    return undefined
+	    alert('Invalid password lenght!');
+	    return undefined;
 	}
-        return 'password'
+        return 'password';
     };
 
     // aqui ele vai renderizar os elementos do "HTML" //
@@ -81,22 +78,22 @@ export default class Password extends React.Component {
 
                     <div>
                         <label>Include uppercase letters</label>
-                        <input type="checkbox" id="check_uppercase" value={this.state.uppercase} onChange={this.handleChange}/>
+                        <input type="checkbox" id="check_uppercase" value={this.state.uppercase} defaultChecked={false} onChange={this.handleChange}/>
                     </div>
 
                     <div>
                         <label>Include lowercase letters</label>
-                        <input type="checkbox" id="check_lowercase" value={this.state.lowercase} onChange={this.handleChange}/>
+                        <input type="checkbox" id="check_lowercase" value={this.state.lowercase} defaultChecked={false} onChange={this.handleChange}/>
                     </div>
 
                     <div>
                         <label>Include numbers</label>
-                        <input type="checkbox" id="check_numbers" value={this.state.numbers} onChange={this.handleChange}/>
+                        <input type="checkbox" id="check_numbers" value={this.state.numbers} defaultChecked={true} onChange={this.handleChange}/>
                     </div>
 
                     <div>
                         <label>Include symbols</label>
-                        <input type="checkbox" id="check_symbols" value={this.state.symbols} onChange={this.handleChange}/>
+                        <input type="checkbox" id="check_symbols" value={this.state.symbols} defaultChecked={false} onChange={this.handleChange}/>
                     </div>
                 </div>
 
