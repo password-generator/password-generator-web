@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react'
 import './Password.css'
+import * as pokemons from '../pokedex.json' // let max = 808; let pokemon = pokemons[max].name.english;
 
-export default function Password () {
+export default function Password() {
   const [password, setPassword] = useState(null)
   const password_lenght = useRef(6)
   const poke_name = useRef(true)
@@ -10,7 +11,7 @@ export default function Password () {
   const numbers = useRef(true)
   const symbols = useRef(false)
 
-  function generatePassword () {
+  function generatePassword() {
     if (password_lenght.current.value > 20 || password_lenght.current.value < 6) {
       alert('Invalid password lenght!')
       return null
@@ -60,8 +61,9 @@ export default function Password () {
           setPassword(genereted_password)
         }}
       >
-                Generate password
+        Generate password
       </button>
+
     </div>
   )
 }
