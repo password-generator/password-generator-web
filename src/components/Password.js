@@ -1,109 +1,67 @@
-import React from 'react';
-
+import React, { useRef, useState } from 'react'
 import './Password.css'
 
-export default class Password extends React.Component {
-    // construtor com o que vai usar na página //
-    constructor(props) {
+export default function Password () {
+  const [password, setPassword] = useState(null)
+  const password_lenght = useRef(6)
+  const poke_name = useRef(true)
+  const uppercase = useRef(false)
+  const lowercase = useRef(false)
+  const numbers = useRef(true)
+  const symbols = useRef(false)
 
-        super(props);
-
-        /* propriedades que deseja armazenar da página
-           como se fosse variáveis, mas dentro de um objeto */
-        this.state = {
-	    password: undefined,
-            password_lenght: 6,
-            poke_names: true,
-            uppercase: false,
-            lowercase: false,
-            numbers: true,
-            symbols: false
-        };
-        // como se fosse uma função de onchance comum do HTML //
-        this.handleChange = this.handleChange.bind(this);
+  function generatePassword () {
+    if (password_lenght.current.value > 20 || password_lenght.current.value < 6) {
+      alert('Invalid password lenght, min = 6 and max = 20!')
+      return undefined
     }
-    // aqui vai a lógica da página, suas funções //
+    return 'password'
+  }
 
-    // função onChange, ativada quando muda algo no input ou quando o botão é clicado //
-    handleChange(event) {
-        /* pega o valor que foi recebido no input e seta no estado (state) la em cima
-           como são vários valores é preciso de um if verificando o id */
-        let id = event.target.id;
-	if (id === 'buttom_generate') {
- 	    this.setState({ password: this.generatePassword() });
-	}
-        if (id === 'number_password_lenght') {
-            this.setState({ password_lenght: event.target.value });
-        }
-	if (id === 'check_poke_names') {
-	    this.setState({ poke_names: event.target.checked });
-        }
-	if (id === 'check_uppercase') {
-	    this.setState({ uppercase: event.target.checked });
-	}
-        if (id === 'check_lowercase') {
-            this.setState({ lowercase: event.target.checked });
-        }
-        if (id === 'check_numbers') {
-            this.setState({ numbers: event.target.checked });
-        }
-        if (id === 'check_symbols') {
-            this.setState({ symbols: event.target.checked });
-        }
-    };
+  return (
+    <div className='container'>
+      <h2>Password Generator</h2>
+      <p>Password: {password}</p>
+      <div>
+        <div>
+          <label>Password lenght</label>
+          <input type='number' id='number_password_lenght' min='6' max='20' ref={password_lenght} />
+        </div>
 
-    // função generatePassword, ativada pelo handleChange ao clicar no botão //
-    generatePassword() {
-	if (Number(this.state.password_lenght > 20 || this.state.password_lenght < 6)) {
-	    alert('Invalid password lenght!');
-	    return undefined;
-	}
-        return 'password';
-    };
+        <div>
+          <label>Include pokemon custom name</label>
+          <input type='checkbox' id='check_poke_names' defaultChecked value={password_lenght} ref={poke_name} />
+        </div>
 
-    // aqui ele vai renderizar os elementos do "HTML" //
-    render() {
-        return (
-            <div className="container" >
-                <h2>Password Generator</h2>
-		<p>Password: {this.state.password}</p>
-                <div>
-                    <div>
-                        <label>Password lenght</label>
-                        <input type="number" id="number_password_lenght" value={this.state.password_lenght} min="6" max="20" onChange={this.handleChange}/>
-                    </div>
+        <div>
+          <label>Include uppercase letters</label>
+          <input type='checkbox' id='check_uppercase' defaultChecked={false} ref={uppercase} />
+        </div>
 
-                    <div>
-                        <label>Include pokemon custom name</label>
-                        <input type="checkbox" id="check_poke_names" value={this.state.poke_names} defaultChecked={true} onChange={this.handleChange}/>
-                    </div>
+        <div>
+          <label>Include lowercase letters</label>
+          <input type='checkbox' id='check_lowercase' defaultChecked={false} ref={lowercase} />
+        </div>
 
-                    <div>
-                        <label>Include uppercase letters</label>
-                        <input type="checkbox" id="check_uppercase" value={this.state.uppercase} defaultChecked={false} onChange={this.handleChange}/>
-                    </div>
+        <div>
+          <label>Include numbers</label>
+          <input type='checkbox' id='check_numbers' defaultChecked ref={numbers} />
+        </div>
 
-                    <div>
-                        <label>Include lowercase letters</label>
-                        <input type="checkbox" id="check_lowercase" value={this.state.lowercase} defaultChecked={false} onChange={this.handleChange}/>
-                    </div>
+        <div>
+          <label>Include symbols</label>
+          <input type='checkbox' id='check_symbols' defaultChecked={false} ref={symbols} />
+        </div>
+      </div>
 
-                    <div>
-                        <label>Include numbers</label>
-                        <input type="checkbox" id="check_numbers" value={this.state.numbers} defaultChecked={true} onChange={this.handleChange}/>
-                    </div>
-
-                    <div>
-                        <label>Include symbols</label>
-                        <input type="checkbox" id="check_symbols" value={this.state.symbols} defaultChecked={false} onChange={this.handleChange}/>
-                    </div>
-                </div>
-
-                <button id="buttom_generate" onClick={this.handleChange}>
-                    Generate password
-                </button>
-            </div>
-
-        );
-    }
+      <button
+        id='buttom_generate' onClick={() => {
+          const genereted_password = generatePassword()
+          setPassword(genereted_password)
+        }}
+      >
+                Generate password
+      </button>
+    </div>
+  )
 }
