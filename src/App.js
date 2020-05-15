@@ -1,13 +1,13 @@
-import React from 'react';
-import './App.css';
-import Password from './components/Password';
+import React from 'react'
+import './App.css'
+import Password from './components/Password'
 
-function App() {
+function App () {
   return (
-    <div className="App">
-      <Password></Password>
+    <div className='App'>
+      <Password />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

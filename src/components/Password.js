@@ -12,8 +12,8 @@ export default function Password () {
 
   function generatePassword () {
     if (password_lenght.current.value > 20 || password_lenght.current.value < 6) {
-      alert('Invalid password lenght, min = 6 and max = 20!')
-      return undefined
+      alert('Invalid password lenght!')
+      return null
     }
     return 'password'
   }
@@ -23,34 +23,34 @@ export default function Password () {
       <h2>Password Generator</h2>
       <p>Password: {password}</p>
       <div>
-        <div>
+        <div class='setting'>
           <label>Password lenght</label>
           <input type='number' id='number_password_lenght' min='6' max='20' ref={password_lenght} />
         </div>
 
-        <div>
+        <div class='setting'>
           <label>Include pokemon custom name</label>
-          <input type='checkbox' id='check_poke_names' defaultChecked value={password_lenght} ref={poke_name} />
+          <input type='checkbox' class='checkmark' id='check_poke_names' defaultChecked ref={poke_name} />
         </div>
 
-        <div>
+        <div class='setting'>
           <label>Include uppercase letters</label>
-          <input type='checkbox' id='check_uppercase' defaultChecked={false} ref={uppercase} />
+          <input type='checkbox' class='checkmark' id='check_uppercase' defaultChecked={false} ref={uppercase} />
         </div>
 
-        <div>
+        <div class='setting'>
           <label>Include lowercase letters</label>
-          <input type='checkbox' id='check_lowercase' defaultChecked={false} ref={lowercase} />
+          <input type='checkbox' class='checkmark' id='check_lowercase' defaultChecked={false} ref={lowercase} />
         </div>
 
-        <div>
+        <div class='setting'>
           <label>Include numbers</label>
-          <input type='checkbox' id='check_numbers' defaultChecked ref={numbers} />
+          <input type='checkbox' class='checkmark' id='check_numbers' defaultChecked ref={numbers} />
         </div>
 
-        <div>
+        <div class='setting'>
           <label>Include symbols</label>
-          <input type='checkbox' id='check_symbols' defaultChecked={false} ref={symbols} />
+          <input type='checkbox' class='checkmark' id='check_symbols' defaultChecked={false} ref={symbols} />
         </div>
       </div>
 
