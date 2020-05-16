@@ -1,24 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
 .App {
-  text-align: center;
-  flex: 1;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    font-family: 'Muli', sans-serif;
+    color: #ffffff;
+    text-align: center;
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body {
+    background-color: #3B3B98;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
