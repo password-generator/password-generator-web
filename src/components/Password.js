@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Password.css'
-// import * as pokemons from '../pokedex.json' // let max = 808; let pokemon = pokemons[max].name.english
+import pokedex from '../pokedex.json'
 
 export default function Password() {
   const [password, setPassword] = useState(null)
@@ -11,95 +11,137 @@ export default function Password() {
   const [numbers, setNumbers] = useState(true)
   const [symbols, setSymbols] = useState(false)
 
-  function generatePassword() {
-    if (password_lenght > 20 || password_lenght < 6) {
-      alert('Invalid password lenght!')
-      return null
-    }
-    return 'password'
-  }
-
   return (
-    <div className='container'>
+    <div className="container">
       <h2>Password Generator</h2>
       <p>Password: {password}</p>
       <div>
-        <div class='setting'>
+        <div className="setting">
           <label>Password lenght</label>
           <input
-            type='number'
-            min='6'
-            max='20'
+            type="number"
+            min="6"
+            max="20"
             defaultValue={6}
             value={password_lenght}
-            onChange={e => setPasswordLenght(e.target.value)}
+            onChange={setPasswordLenght}
           />
         </div>
 
-        <div class='setting'>
+        <div className="setting">
           <label>Include pokemon name</label>
           <input
-            type='checkbox'
-            class='checkmark'
+            type="checkbox"
+            className="checkmark"
             defaultChecked
             value={poke_name}
-            onChange={e => setPokeName(e.target.value)}
+            onChange={setPokeName}
+            id="number_password_lenght"
+            min="6"
+            max="20"
           />
         </div>
 
-        <div class='setting'>
+        <div className="setting">
+          <label>Include pokemon custom name</label>
+          <input
+            type="checkbox"
+            className="checkmark"
+            id="check_poke_names"
+            defaultChecked
+          />
+        </div>
+
+        <div className="setting">
           <label>Include uppercase letters</label>
           <input
-            type='checkbox'
-            class='checkmark'
+            type="checkbox"
+            className="checkmark"
             defaultChecked={false}
             value={uppercase}
-            onChange={e => setUppercase(e.target.value)}
+            onChange={setUppercase}
+            id="check_uppercase"
           />
         </div>
 
-        <div class='setting'>
+        <div className="setting">
           <label>Include lowercase letters</label>
           <input
-            type='checkbox'
-            class='checkmark'
+            type="checkbox"
+            className="checkmark"
             defaultChecked={false}
             value={lowercase}
-            onChange={e => setLowercase(e.target.value)}
+            onChange={setLowercase}
+            id="check_lowercase"
           />
         </div>
 
-        <div class='setting'>
+        <div className="setting">
           <label>Include numbers</label>
           <input
-            type='checkbox'
-            class='checkmark'
+            type="checkbox"
+            className="checkmark"
             defaultChecked
             value={numbers}
-            onChange={e => setNumbers(e.target.value)}
+            onChange={setNumbers}
+            id="check_numbers"
           />
         </div>
 
-        <div class='setting'>
+        <div className="setting">
           <label>Include symbols</label>
           <input
-            type='checkbox'
-            class='checkmark'
+            type="checkbox"
+            className="checkmark"
             defaultChecked={false}
             value={symbols}
-            onChange={e => setSymbols(e.target.value)}
+            onChange={setSymbols}
           />
         </div>
       </div>
 
-      <button id="buttom_generate" onClick={() => {
-        const password_generated = generatePassword()
-        setPassword(password_generated)
-      }}>
+      <button
+        id="buttom_generate"
+        onClick={() => {
+          if (password_lenght > 20 || password_lenght < 6) {
+            alert('Invalid password lenght!')
+          } else {
+            let password = poke_name
+              ? [
+                  String(
+                    pokedex[Math.trunc(Math.random() * pokedex.length)].name
+                      .english
+                  ),
+                ]
+              : ['']
+            let randomCharsArray = []
+            if (lowercase) {
+              randomCharsArray.push('abcdefghijklmnopqrstuvwxyz')
+            }
+            if (uppercase) {
+              randomCharsArray.push('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+            }
+            if (numbers) {
+              randomCharsArray.push('0123456789')
+            }
+            if (symbols) {
+              randomCharsArray.push('!@#$%^&*(){}[]=<>/,.')
+            }
+            let randomChars = randomCharsArray.join('')
+            for (var i = 0; i < password_lenght; i += 1) {
+              password.push(
+                randomChars.charAt(
+                  Math.floor(Math.random() * randomChars.length)
+                )
+              )
+            }
+
+            setPassword(password.join(''))
+          }
+        }}
+      >
         Generate password
       </button>
-
     </div>
-
   )
 }
