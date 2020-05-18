@@ -31,7 +31,7 @@ export default function Password() {
     let pass = ''
     let shuffled_pass = ''
     let n = 0
-    let v = 0
+
     const checks = [uppercase, 'uppercase', lowercase, 'lowercase', numbers, 'numbers', symbols, 'symbols']
 
     if (password_length < 6 || password_length > 20) {
@@ -63,7 +63,25 @@ export default function Password() {
   return (
     <div className='container'>
       <h2>Password Generator</h2>
-      <p>Password: {password}</p>
+
+      <div class="result-container">
+        <span id="result">{password}</span>
+        <button class="buttom-clipboard" id="clipboard" onClick={() => {
+          const textarea = document.createElement('textarea')
+
+          if (password === null) return
+
+          textarea.value = password
+          document.body.appendChild(textarea)
+          textarea.select()
+          document.execCommand('copy')
+          textarea.remove()
+          alert('Password copied to clipboard!')
+        }}>
+          <i class="far fa-clipboard"></i>
+        </button>
+      </div>
+
       <div>
         <div class='setting'>
           <label>Password length</label>
@@ -71,7 +89,7 @@ export default function Password() {
             type='number'
             min='6'
             max='20'
-            defaultValue={6}
+            defaultValue={password_length}
             value={password_length}
             onChange={e => setPasswordLength(e.target.value)}
           />
@@ -133,7 +151,7 @@ export default function Password() {
         </div>
       </div>
 
-      <button id="buttom_generate" onClick={() => {
+      <button id="buttom-generate" onClick={() => {
         const password_generated = generatePassword()
         setPassword(password_generated)
       }}>
