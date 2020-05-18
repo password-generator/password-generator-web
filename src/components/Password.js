@@ -62,7 +62,7 @@ export default function Password() {
   }
 
   return (
-    <div className='container'>
+    <div className="container">
       <h2>Password Generator</h2>
 
       <div class="result-container">
@@ -83,67 +83,67 @@ export default function Password() {
       </div>
 
       <div>
-        <div class='setting'>
+        <div class="setting">
           <label>Password length</label>
           <input
-            type='number'
-            min='6'
-            max='20'
+            type="number"
+            min="6"
+            max="20"
             defaultValue={password_length}
             value={password_length}
             onChange={e => setPasswordLength(e.target.value)}
           />
         </div>
 
-        <div class='setting'>
+        <div class="setting">
           <label>Include pokemon name</label>
           <input
-            type='checkbox'
-            class='checkmark'
+            type="checkbox"
+            class="checkmark"
             defaultChecked={false}
             value={poke_name}
             onChange={() => setPokeName(!poke_name)}
           />
         </div>
 
-        <div class='setting'>
+        <div class="setting">
           <label>Include uppercase letters</label>
           <input
-            type='checkbox'
-            class='checkmark'
+            type="checkbox"
+            class="checkmark"
             defaultChecked={true}
             value={uppercase}
             onChange={() => setUppercase(!uppercase)}
           />
         </div>
 
-        <div class='setting'>
+        <div class="setting">
           <label>Include lowercase letters</label>
           <input
-            type='checkbox'
-            class='checkmark'
+            type="checkbox"
+            class="checkmark"
             defaultChecked={false}
             value={lowercase}
             onChange={() => setLowercase(!lowercase)}
           />
         </div>
 
-        <div class='setting'>
+        <div class="setting">
           <label>Include numbers</label>
           <input
-            type='checkbox'
-            class='checkmark'
+            type="checkbox"
+            class="checkmark"
             defaultChecked
             value={numbers}
             onChange={() => setNumbers(!numbers)}
           />
         </div>
 
-        <div class='setting'>
+        <div class="setting">
           <label>Include symbols</label>
           <input
-            type='checkbox'
-            class='checkmark'
+            type="checkbox"
+            class="checkmark"
             defaultChecked={false}
             value={symbols}
             onChange={() => setSymbols(!symbols)}
