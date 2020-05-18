@@ -35,6 +35,7 @@ export default function Password() {
     const checks = [uppercase, 'uppercase', lowercase, 'lowercase', numbers, 'numbers', symbols, 'symbols']
 
     if (password_length < 6 || password_length > 20) {
+      alert('Invalid password lenght!')
       return null
     }
 
