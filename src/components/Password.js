@@ -1,22 +1,63 @@
 import React, { useState } from 'react'
 import './Password.css'
-// import * as pokemons from '../pokedex.json' // let max = 808; let pokemon = pokemons[max].name.english
+//import * as pokemons from '../pokedex.json' // let max = 808; let pokemon = pokemons[max].name.english
 
 export default function Password() {
   const [password, setPassword] = useState(null)
-  const [password_lenght, setPasswordLenght] = useState(6)
-  const [poke_name, setPokeName] = useState(true)
-  const [uppercase, setUppercase] = useState(false)
+  const [password_length, setPasswordLength] = useState(6)
+  const [poke_name, setPokeName] = useState(false)
+  const [uppercase, setUppercase] = useState(true)
   const [lowercase, setLowercase] = useState(false)
   const [numbers, setNumbers] = useState(true)
   const [symbols, setSymbols] = useState(false)
 
+  function generateRandomCharacter(name) {
+    if (name === 'uppercase') {
+      return String.fromCharCode(Math.floor(Math.random() * 26) + 65)
+    }
+    if (name === 'lowercase') {
+      return String.fromCharCode(Math.floor(Math.random() * 26) + 97)
+    }
+    if (name === 'numbers') {
+      return String.fromCharCode(Math.floor(Math.random() * 10) + 48)
+    }
+    if (name === 'symbols') {
+      const symbols = '!@#$%^&*(){}[]=<>/,.'
+      return symbols[Math.floor(Math.random() * symbols.length)]
+    }
+  }
+
   function generatePassword() {
-    if (password_lenght > 20 || password_lenght < 6) {
-      alert('Invalid password lenght!')
+    let pass = ''
+    let shuffled_pass = ''
+    let n = 0
+    let v = 0
+    const checks = [uppercase, 'uppercase', lowercase, 'lowercase', numbers, 'numbers', symbols, 'symbols']
+
+    if (password_length < 6 || password_length > 20) {
       return null
     }
-    return 'password'
+
+    if (uppercase === false && lowercase === false && numbers === false && symbols === false) {
+      alert('No checkbox has been selected!')
+      return null
+    }
+
+    for (let i = 0; i < password_length; i += 1) {
+      if (checks[n] === true) {
+        pass += generateRandomCharacter(checks[n + 1])
+      } else {
+        i -= 1
+      }
+      n === 8 ? n = 0 : n += 2
+    }
+
+    pass = pass.split('')
+    while (pass.length > 0) {
+      shuffled_pass += pass.splice((pass.length * Math.random()) << 0, 1)
+    }
+
+    return shuffled_pass
   }
 
   return (
@@ -25,14 +66,14 @@ export default function Password() {
       <p>Password: {password}</p>
       <div>
         <div class='setting'>
-          <label>Password lenght</label>
+          <label>Password length</label>
           <input
             type='number'
             min='6'
             max='20'
             defaultValue={6}
-            value={password_lenght}
-            onChange={e => setPasswordLenght(e.target.value)}
+            value={password_length}
+            onChange={e => setPasswordLength(e.target.value)}
           />
         </div>
 
@@ -41,9 +82,9 @@ export default function Password() {
           <input
             type='checkbox'
             class='checkmark'
-            defaultChecked
+            defaultChecked={false}
             value={poke_name}
-            onChange={e => setPokeName(e.target.value)}
+            onChange={() => setPokeName(!poke_name)}
           />
         </div>
 
@@ -52,9 +93,9 @@ export default function Password() {
           <input
             type='checkbox'
             class='checkmark'
-            defaultChecked={false}
+            defaultChecked={true}
             value={uppercase}
-            onChange={e => setUppercase(e.target.value)}
+            onChange={() => setUppercase(!uppercase)}
           />
         </div>
 
@@ -65,7 +106,7 @@ export default function Password() {
             class='checkmark'
             defaultChecked={false}
             value={lowercase}
-            onChange={e => setLowercase(e.target.value)}
+            onChange={() => setLowercase(!lowercase)}
           />
         </div>
 
@@ -76,7 +117,7 @@ export default function Password() {
             class='checkmark'
             defaultChecked
             value={numbers}
-            onChange={e => setNumbers(e.target.value)}
+            onChange={() => setNumbers(!numbers)}
           />
         </div>
 
@@ -87,7 +128,7 @@ export default function Password() {
             class='checkmark'
             defaultChecked={false}
             value={symbols}
-            onChange={e => setSymbols(e.target.value)}
+            onChange={() => setSymbols(!symbols)}
           />
         </div>
       </div>
