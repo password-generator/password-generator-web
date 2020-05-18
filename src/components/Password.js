@@ -60,26 +60,24 @@ export default function Password() {
     return shuffled_pass
   }
 
-  function copyToClipboard() {
-    const textarea = document.createElement('textarea')
-
-    //if (password === null) return
-
-    textarea.value = password
-    document.body.appendChild(textarea)
-    textarea.select()
-    document.execCommand('copy')
-    textarea.remove()
-    alert('Password copied to clipboard!')
-  }
-
   return (
     <div className='container'>
       <h2>Password Generator</h2>
 
       <div class="result-container">
         <span id="result">{password}</span>
-        <button class="buttom-clipboard" id="clipboard" onClick={copyToClipboard()}>
+        <button class="buttom-clipboard" id="clipboard" onClick={() => {
+          const textarea = document.createElement('textarea')
+
+          if (password === null) return
+
+          textarea.value = password
+          document.body.appendChild(textarea)
+          textarea.select()
+          document.execCommand('copy')
+          textarea.remove()
+          alert('Password copied to clipboard!')
+        }}>
         </button>
       </div>
 
