@@ -1,6 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# PassWord-Generator
+# Password-Generator
+Web site created to generate good passwords.
+
+![screenshot](https://user-images.githubusercontent.com/60241602/82360848-5d952180-99e0-11ea-9c49-b63dacb85517.png)
 
 ## Available Scripts
 
