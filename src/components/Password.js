@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import './Password.css'
-//import * as pokemons from '../pokedex.json' // let max = 808; let pokemon = pokemons[max].name.english
 
 export default function Password() {
   const [password, setPassword] = useState(null)
   const [password_length, setPasswordLength] = useState(6)
-  const [poke_name, setPokeName] = useState(false)
   const [uppercase, setUppercase] = useState(true)
   const [lowercase, setLowercase] = useState(false)
   const [numbers, setNumbers] = useState(true)
@@ -92,17 +90,6 @@ export default function Password() {
             defaultValue={password_length}
             value={password_length}
             onChange={e => setPasswordLength(e.target.value)}
-          />
-        </div>
-
-        <div class="setting">
-          <label>Include pokemon name</label>
-          <input
-            type="checkbox"
-            class="checkmark"
-            defaultChecked={false}
-            value={poke_name}
-            onChange={() => setPokeName(!poke_name)}
           />
         </div>
 
