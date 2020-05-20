@@ -8,6 +8,7 @@ export default function Password() {
   const [lowercase, setLowercase] = useState(false)
   const [numbers, setNumbers] = useState(true)
   const [symbols, setSymbols] = useState(false)
+  const [InitialText, setInitialText] = useState('')
 
   function generateRandomCharacter(name) {
     if (name === 'uppercase') {
@@ -30,25 +31,43 @@ export default function Password() {
     let shuffled_pass = ''
     let n = 0
 
-    const checks = [uppercase, 'uppercase', lowercase, 'lowercase', numbers, 'numbers', symbols, 'symbols']
+    const checks = [
+      uppercase,
+      'uppercase',
+      lowercase,
+      'lowercase',
+      numbers,
+      'numbers',
+      symbols,
+      'symbols',
+    ]
 
     if (password_length < 6 || password_length > 20) {
       alert('Invalid password lenght!')
       return null
     }
 
-    if (uppercase === false && lowercase === false && numbers === false && symbols === false) {
+    if (
+      uppercase === false &&
+      lowercase === false &&
+      numbers === false &&
+      symbols === false
+    ) {
       alert('No checkbox has been selected!')
       return null
     }
+    if (InitialText.length >= password_length) {
+      alert('Invalid Default Initial Text Length')
+      return null
+    }
 
-    for (let i = 0; i < password_length; i += 1) {
+    for (let i = 0; i < password_length - InitialText.length; i += 1) {
       if (checks[n] === true) {
         pass += generateRandomCharacter(checks[n + 1])
       } else {
         i -= 1
       }
-      n === 8 ? n = 0 : n += 2
+      n === 8 ? (n = 0) : (n += 2)
     }
 
     pass = pass.split('')
@@ -56,7 +75,7 @@ export default function Password() {
       shuffled_pass += pass.splice((pass.length * Math.random()) << 0, 1)
     }
 
-    return shuffled_pass
+    return `${InitialText}${shuffled_pass}`
   }
 
   return (
@@ -65,19 +84,22 @@ export default function Password() {
 
       <div class="result-container">
         <span id="result">{password}</span>
-        <button class="buttom-clipboard" id="clipboard" onClick={() => {
-          const textarea = document.createElement('textarea')
+        <button
+          class="buttom-clipboard"
+          id="clipboard"
+          onClick={() => {
+            const textarea = document.createElement('textarea')
 
-          if (password === null) return
+            if (password === null) return
 
-          textarea.value = password
-          document.body.appendChild(textarea)
-          textarea.select()
-          document.execCommand('copy')
-          textarea.remove()
-          alert('Password copied to clipboard!')
-        }}>
-        </button>
+            textarea.value = password
+            document.body.appendChild(textarea)
+            textarea.select()
+            document.execCommand('copy')
+            textarea.remove()
+            alert('Password copied to clipboard!')
+          }}
+        ></button>
       </div>
 
       <div>
@@ -89,10 +111,18 @@ export default function Password() {
             max="20"
             defaultValue={password_length}
             value={password_length}
-            onChange={e => setPasswordLength(e.target.value)}
+            onChange={(e) => setPasswordLength(e.target.value)}
           />
         </div>
 
+        <div class="setting">
+          <label>Default Initial Text</label>
+          <input
+            type="text"
+            value={InitialText}
+            onChange={(e) => setInitialText(e.target.value)}
+          />
+        </div>
         <div class="setting">
           <label>Include uppercase letters</label>
           <input
@@ -138,14 +168,15 @@ export default function Password() {
         </div>
       </div>
 
-      <button id="buttom-generate" onClick={() => {
-        const password_generated = generatePassword()
-        setPassword(password_generated)
-      }}>
+      <button
+        id="buttom-generate"
+        onClick={() => {
+          const password_generated = generatePassword()
+          setPassword(password_generated)
+        }}
+      >
         Generate password
       </button>
-
     </div>
-
   )
 }
