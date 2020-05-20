@@ -8,7 +8,7 @@ export default function Password() {
   const [lowercase, setLowercase] = useState(false)
   const [numbers, setNumbers] = useState(true)
   const [symbols, setSymbols] = useState(false)
-  const [InitialText, setInitialText] = useState('')
+  const [initial_text, setInitialText] = useState('')
 
   function generateRandomCharacter(name) {
     if (name === 'uppercase') {
@@ -56,12 +56,13 @@ export default function Password() {
       alert('No checkbox has been selected!')
       return null
     }
-    if (InitialText.length >= password_length) {
-      alert('Invalid Default Initial Text Length')
+
+    if (initial_text.length >= password_length) {
+      alert('Invalid initial text length!')
       return null
     }
 
-    for (let i = 0; i < password_length - InitialText.length; i += 1) {
+    for (let i = 0; i < password_length - initial_text.length; i += 1) {
       if (checks[n] === true) {
         pass += generateRandomCharacter(checks[n + 1])
       } else {
@@ -75,7 +76,7 @@ export default function Password() {
       shuffled_pass += pass.splice((pass.length * Math.random()) << 0, 1)
     }
 
-    return `${InitialText}${shuffled_pass}`
+    return `${initial_text}${shuffled_pass}`
   }
 
   return (
@@ -116,10 +117,10 @@ export default function Password() {
         </div>
 
         <div class="setting">
-          <label>Default Initial Text</label>
+          <label>Initial text</label>
           <input
             type="text"
-            value={InitialText}
+            value={initial_text}
             onChange={(e) => setInitialText(e.target.value)}
           />
         </div>
