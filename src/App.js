@@ -2,9 +2,9 @@ import React from 'react'
 import './App.css'
 import Password from './components/Password'
 
-function App () {
+function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <Password />
     </div>
   )

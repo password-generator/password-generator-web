@@ -56,8 +56,12 @@ export default function Password() {
       alert('No checkbox has been selected!')
       return null
     }
+    if (InitialText.length >= password_length) {
+      alert('Invalid Default Initial Text Length')
+      return null
+    }
 
-    for (let i = 0; i < password_length; i += 1) {
+    for (let i = 0; i < password_length - InitialText.length; i += 1) {
       if (checks[n] === true) {
         pass += generateRandomCharacter(checks[n + 1])
       } else {
@@ -112,6 +116,14 @@ export default function Password() {
         </div>
 
         <div class="setting">
+          <label>Default Initial Text</label>
+          <input
+            type="text"
+            value={InitialText}
+            onChange={(e) => setInitialText(e.target.value)}
+          />
+        </div>
+        <div class="setting">
           <label>Include uppercase letters</label>
           <input
             type="checkbox"
@@ -152,14 +164,6 @@ export default function Password() {
             defaultChecked={false}
             value={symbols}
             onChange={() => setSymbols(!symbols)}
-          />
-        </div>
-        <div class="setting">
-          <label>Default Initial Text</label>
-          <input
-            type="text"
-            value={InitialText}
-            onChange={(e) => setInitialText(e.target.value)}
           />
         </div>
       </div>
