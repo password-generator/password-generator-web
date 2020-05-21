@@ -117,7 +117,7 @@ export default function Password() {
         </div>
 
         <div class="setting">
-          <label>Initial text</label>
+          <label>Custom initial text</label>
           <input
             type="text"
             value={initial_text}
