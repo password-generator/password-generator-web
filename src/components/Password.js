@@ -10,37 +10,28 @@ export default function Password() {
   const [symbols, setSymbols] = useState(false)
   const [initial_text, setInitialText] = useState('')
 
-  function generateRandomCharacter(name) {
-    if (name === 'uppercase') {
+  const generateRandomCharacter = (character) => {
+    if (character === 'uppercase') {
       return String.fromCharCode(Math.floor(Math.random() * 26) + 65)
     }
-    if (name === 'lowercase') {
+    if (character === 'lowercase') {
       return String.fromCharCode(Math.floor(Math.random() * 26) + 97)
     }
-    if (name === 'numbers') {
+    if (character === 'numbers') {
       return String.fromCharCode(Math.floor(Math.random() * 10) + 48)
     }
-    if (name === 'symbols') {
+    if (character === 'symbols') {
       const symbols = '!@#$%^&*(){}[]=<>/,.'
       return symbols[Math.floor(Math.random() * symbols.length)]
     }
   }
 
-  function generatePassword() {
+  const generatePassword = () => {
     let pass = ''
-    let shuffled_pass = ''
-    let n = 0
+    let initial_text_length = initial_text.length
 
-    const checks = [
-      uppercase,
-      'uppercase',
-      lowercase,
-      'lowercase',
-      numbers,
-      'numbers',
-      symbols,
-      'symbols',
-    ]
+    const checks = [uppercase, 'uppercase', lowercase, 'lowercase', numbers,
+      'numbers', symbols, 'symbols'] // pair = value / odd = target //
 
     if (password_length < 6 || password_length > 20) {
       alert('Invalid password lenght!')
@@ -57,111 +48,110 @@ export default function Password() {
       return null
     }
 
-    if (initial_text.length >= password_length) {
-      alert('Invalid initial text length!')
-      return null
+    if (initial_text_length >= password_length) {
+      alert('Initial text will not be used, character limit has been exceeded!')
+      initial_text_length = 0
     }
 
-    for (let i = 0; i < password_length - initial_text.length; i += 1) {
-      if (checks[n] === true) {
-        pass += generateRandomCharacter(checks[n + 1])
-      } else {
-        i -= 1
-      }
+    for (let i = 0, n = 0; i < password_length - initial_text_length; i += 1) {
+      const value = checks[n]
+      const target = checks[n + 1]
+
+      value === true ? pass += generateRandomCharacter(target) : i -= 1
+
       n === 8 ? (n = 0) : (n += 2)
     }
 
-    pass = pass.split('')
-    while (pass.length > 0) {
-      shuffled_pass += pass.splice((pass.length * Math.random()) << 0, 1)
-    }
+    pass = pass.split('').sort(() => 0.5 - Math.random()).join('')
 
-    return `${initial_text}${shuffled_pass}`
+    return initial_text_length > 0 ? `${initial_text}${pass}` : pass
+  }
+
+  const copyToClipboard = () => {
+    const textarea = document.createElement('textarea')
+
+    if (password === null) return
+
+    textarea.value = password
+    document.body.appendChild(textarea)
+    textarea.select()
+    document.execCommand('copy')
+    textarea.remove()
+    alert('Password copied to clipboard!')
   }
 
   return (
     <div className="container">
       <h2>Password Generator</h2>
 
-      <div class="result-container">
+      <div className="result-container">
         <span id="result">{password}</span>
         <button
-          class="buttom-clipboard"
+          className="buttom-clipboard"
           id="clipboard"
-          onClick={() => {
-            const textarea = document.createElement('textarea')
-
-            if (password === null) return
-
-            textarea.value = password
-            document.body.appendChild(textarea)
-            textarea.select()
-            document.execCommand('copy')
-            textarea.remove()
-            alert('Password copied to clipboard!')
-          }}
+          onClick={copyToClipboard}
         ></button>
       </div>
 
       <div>
-        <div class="setting">
-          <label>Password length</label>
+        <div className="setting">
+          <label>Password Length</label>
           <input
             type="number"
             min="6"
             max="20"
-            defaultValue={password_length}
             value={password_length}
-            onChange={(e) => setPasswordLength(e.target.value)}
+            onChange={e => setPasswordLength(e.target.value)}
           />
         </div>
 
-        <div class="setting">
-          <label>Custom initial text</label>
+        <div className="setting">
+          <label>Add Initial Text</label>
           <input
             type="text"
             value={initial_text}
-            onChange={(e) => setInitialText(e.target.value)}
+            onChange={e => setInitialText(e.target.value)}
           />
         </div>
-        <div class="setting">
-          <label>Include uppercase letters</label>
+
+        <div className="setting">
+          <label>Include Uppercase Letters</label>
           <input
             type="checkbox"
-            class="checkmark"
+            className="checkmark"
             defaultChecked={true}
             value={uppercase}
             onChange={() => setUppercase(!uppercase)}
           />
         </div>
 
-        <div class="setting">
-          <label>Include lowercase letters</label>
+        <div className="setting">
+          <label>Include Lowercase Letters</label>
           <input
             type="checkbox"
-            class="checkmark"
+            className="checkmark"
             defaultChecked={false}
             value={lowercase}
             onChange={() => setLowercase(!lowercase)}
           />
         </div>
 
-        <div class="setting">
-          <label>Include numbers</label>
+        <div className="setting">
+          <label>Include Numbers</label>
           <input
             type="checkbox"
-            class="checkmark"
+            className="checkmark"
             defaultChecked
             value={numbers}
             onChange={() => setNumbers(!numbers)}
           />
         </div>
 
-        <div class="setting">
-          <label>Include symbols</label>
+        <div className="setting">
+          <label>Include Symbols</label>
           <input
             type="checkbox"
-            class="checkmark"
+            className="checkmark"
             defaultChecked={false}
             value={symbols}
             onChange={() => setSymbols(!symbols)}
@@ -176,7 +166,7 @@ export default function Password() {
           setPassword(password_generated)
         }}
       >
-        Generate password
+        Generate Password
       </button>
     </div>
   )
