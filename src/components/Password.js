@@ -10,17 +10,17 @@ export default function Password() {
   const [symbols, setSymbols] = useState(false)
   const [initial_text, setInitialText] = useState('')
 
-  const generateRandomCharacter = (character) => {
-    if (character === 'uppercase') {
+  const generateRandomCharacter = {
+    uppercase() {
       return String.fromCharCode(Math.floor(Math.random() * 26) + 65)
-    }
-    if (character === 'lowercase') {
+    },
+    lowercase() {
       return String.fromCharCode(Math.floor(Math.random() * 26) + 97)
-    }
-    if (character === 'numbers') {
+    },
+    numbers() {
       return String.fromCharCode(Math.floor(Math.random() * 10) + 48)
-    }
-    if (character === 'symbols') {
+    },
+    symbols() {
       const symbols = '!@#$%^&*(){}[]=<>/,.'
       return symbols[Math.floor(Math.random() * symbols.length)]
     }
@@ -57,7 +57,7 @@ export default function Password() {
       const value = checks[n]
       const target = checks[n + 1]
 
-      value === true ? pass += generateRandomCharacter(target) : i -= 1
+      value === true ? pass += generateRandomCharacter[target]() : i -= 1
 
       n === 8 ? (n = 0) : (n += 2)
     }
