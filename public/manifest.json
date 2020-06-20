@@ -1,6 +1,6 @@
 {
+  "name": "Password Generator",
   "short_name": "Password Generator",
-  "name": "Password Generator | Gerador de Senhas",
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,9 +18,10 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
-  "theme_color": "#3b3b98",
-  "background_color": "#23235b",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "orientation": "portrait",
   "description": "Web site created to generate good passwords"
 }
