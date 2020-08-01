@@ -1,5 +1,16 @@
 import React, { useState } from 'react'
-import './Password.css'
+import {
+  Container,
+  Title,
+  ResultContainer,
+  ResultSpan,
+  ResultCopyToClipboardButton,
+  Setting,
+  PasswordLengthInput,
+  GeneratePasswordButton,
+  DefaultInitialTextInput,
+  CheckBox,
+} from './styles'
 
 export default function Password() {
   const [password, setPassword] = useState(null)
@@ -23,15 +34,23 @@ export default function Password() {
     symbols() {
       const symbols = '!@#$%^&*(){}[]=<>/,.'
       return symbols[Math.floor(Math.random() * symbols.length)]
-    }
+    },
   }
 
   const generatePassword = () => {
     let pass = ''
     let initial_text_length = initial_text.length
 
-    const checks = [uppercase, 'uppercase', lowercase, 'lowercase', numbers,
-      'numbers', symbols, 'symbols'] // pair = value / odd = target //
+    const checks = [
+      uppercase,
+      'uppercase',
+      lowercase,
+      'lowercase',
+      numbers,
+      'numbers',
+      symbols,
+      'symbols',
+    ] // pair = value / odd = target //
 
     if (password_length < 6 || password_length > 20) {
       alert('Invalid password lenght!')
@@ -57,12 +76,15 @@ export default function Password() {
       const value = checks[n]
       const target = checks[n + 1]
 
-      value === true ? pass += generateRandomCharacter[target]() : i -= 1
+      value === true ? (pass += generateRandomCharacter[target]()) : (i -= 1)
 
       n === 8 ? (n = 0) : (n += 2)
     }
 
-    pass = pass.split('').sort(() => 0.5 - Math.random()).join('')
+    pass = pass
+      .split('')
+      .sort(() => 0.5 - Math.random())
+      .join('')
 
     return initial_text_length > 0 ? `${initial_text}${pass}` : pass
   }
@@ -81,93 +103,78 @@ export default function Password() {
   }
 
   return (
-    <div className="container">
-      <h2>Password Generator</h2>
+    <Container>
+      <Title>Password Generator</Title>
 
-      <div className="result-container">
-        <span id="result">{password}</span>
-        <button
-          className="buttom-clipboard"
-          id="clipboard"
-          onClick={copyToClipboard}
-        ></button>
-      </div>
+      <ResultContainer>
+        <ResultSpan>{password}</ResultSpan>
+        <ResultCopyToClipboardButton id='clipboard' onClick={copyToClipboard}>
+          <img
+            src={require('../../clipboard-icon.png')}
+            alt='Copy'
+            width={40}
+            height={40}
+          ></img>
+        </ResultCopyToClipboardButton>
+      </ResultContainer>
 
       <div>
-        <div className="setting">
+        <Setting>
           <label>Password Length</label>
-          <input
-            type="number"
-            min="6"
-            max="20"
+          <PasswordLengthInput
             value={password_length}
-            onChange={e => setPasswordLength(e.target.value)}
+            onChange={(e) => setPasswordLength(e.target.value)}
           />
-        </div>
+        </Setting>
 
-        <div className="setting">
+        <Setting>
           <label>Add Initial Text</label>
-          <input
-            type="text"
+          <DefaultInitialTextInput
             value={initial_text}
-            onChange={e => setInitialText(e.target.value)}
+            onChange={(e) => setInitialText(e.target.value)}
           />
-        </div>
+        </Setting>
 
-        <div className="setting">
+        <Setting>
           <label>Include Uppercase Letters</label>
-          <input
-            type="checkbox"
-            className="checkmark"
-            defaultChecked={true}
+          <CheckBox
+            defaultChecked
             value={uppercase}
             onChange={() => setUppercase(!uppercase)}
           />
-        </div>
+        </Setting>
 
-        <div className="setting">
+        <Setting>
           <label>Include Lowercase Letters</label>
-          <input
-            type="checkbox"
-            className="checkmark"
-            defaultChecked={false}
+          <CheckBox
             value={lowercase}
             onChange={() => setLowercase(!lowercase)}
           />
-        </div>
+        </Setting>
 
-        <div className="setting">
+        <Setting>
           <label>Include Numbers</label>
-          <input
-            type="checkbox"
-            className="checkmark"
+          <CheckBox
             defaultChecked
             value={numbers}
             onChange={() => setNumbers(!numbers)}
           />
-        </div>
+        </Setting>
 
-        <div className="setting">
+        <Setting>
           <label>Include Symbols</label>
-          <input
-            type="checkbox"
-            className="checkmark"
-            defaultChecked={false}
-            value={symbols}
-            onChange={() => setSymbols(!symbols)}
-          />
-        </div>
+          <CheckBox value={symbols} onChange={() => setSymbols(!symbols)} />
+        </Setting>
       </div>
 
-      <button
-        id="buttom-generate"
+      <GeneratePasswordButton
         onClick={() => {
           const password_generated = generatePassword()
           setPassword(password_generated)
         }}
       >
         Generate Password
-      </button>
-    </div>
+      </GeneratePasswordButton>
+    </Container>
   )
 }
