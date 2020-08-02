@@ -12,8 +12,8 @@ import {
   CheckBox,
 } from './styles'
 
-export default function Password() {
-  const [password, setPassword] = useState(null)
+const PasswordGeneratorMain: React.FC = () => {
+  const [password, setPassword] = useState('')
   const [password_length, setPasswordLength] = useState(6)
   const [uppercase, setUppercase] = useState(true)
   const [lowercase, setLowercase] = useState(false)
@@ -74,7 +74,11 @@ export default function Password() {
 
     for (let i = 0, n = 0; i < password_length - initial_text_length; i += 1) {
       const value = checks[n]
-      const target = checks[n + 1]
+      const target = checks[n + 1] as
+        | 'uppercase'
+        | 'lowercase'
+        | 'numbers'
+        | 'symbols'
 
       value === true ? (pass += generateRandomCharacter[target]()) : (i -= 1)
 
@@ -94,11 +98,11 @@ export default function Password() {
 
     if (password === null) return
 
-    textarea.value = password
+    textarea?.setAttribute('value', password)
     document.body.appendChild(textarea)
-    textarea.select()
-    document.execCommand('copy')
-    textarea.remove()
+    textarea?.select()
+    document?.execCommand('copy')
+    textarea?.remove()
     alert('Password copied to clipboard!')
   }
 
@@ -123,7 +127,7 @@ export default function Password() {
           <label>Password Length</label>
           <PasswordLengthInput
             value={password_length}
-            onChange={(e) => setPasswordLength(e.target.value)}
+            onChange={e => setPasswordLength(Number(e.target.value))}
           />
         </Setting>
 
@@ -131,45 +135,35 @@ export default function Password() {
           <label>Add Initial Text</label>
           <DefaultInitialTextInput
             value={initial_text}
-            onChange={(e) => setInitialText(e.target.value)}
+            onChange={e => setInitialText(e.target.value)}
           />
         </Setting>
 
         <Setting>
           <label>Include Uppercase Letters</label>
-          <CheckBox
-            defaultChecked
-            value={uppercase}
-            onChange={() => setUppercase(!uppercase)}
-          />
+          <CheckBox defaultChecked onChange={() => setUppercase(!uppercase)} />
         </Setting>
 
         <Setting>
           <label>Include Lowercase Letters</label>
-          <CheckBox
-            value={lowercase}
-            onChange={() => setLowercase(!lowercase)}
-          />
+          <CheckBox onChange={() => setLowercase(!lowercase)} />
         </Setting>
 
         <Setting>
           <label>Include Numbers</label>
-          <CheckBox
-            defaultChecked
-            value={numbers}
-            onChange={() => setNumbers(!numbers)}
-          />
+          <CheckBox defaultChecked onChange={() => setNumbers(!numbers)} />
         </Setting>
 
         <Setting>
           <label>Include Symbols</label>
-          <CheckBox value={symbols} onChange={() => setSymbols(!symbols)} />
+          <CheckBox onChange={() => setSymbols(!symbols)} />
         </Setting>
       </div>
 
       <GeneratePasswordButton
         onClick={() => {
           const password_generated = generatePassword()
+          if (password_generated === null) return
           setPassword(password_generated)
         }}
       >
@@ -178,3 +172,5 @@ export default function Password() {
     </Container>
   )
 }
+
+export default PasswordGeneratorMain
