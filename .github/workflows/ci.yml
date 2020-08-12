@@ -1,0 +1,12 @@
+name: ci
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check commit message
+        uses: wagoid/commitlint-github-action@v1
