@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import ClipboardIcon from '../../clipboard-icon.png';
 import {
@@ -54,8 +56,8 @@ const PasswordGeneratorMain: React.FC = () => {
       'symbols',
     ]; // pair = value / odd = target //
 
-    if (passwordLength < 6 || passwordLength > 20) {
-      alert('Invalid password length!');
+    if (passwordLength < 6 || passwordLength > 20) 
+      toast.error('Invalid password length!');
       return null;
     }
 
@@ -65,12 +67,12 @@ const PasswordGeneratorMain: React.FC = () => {
       && numbers === false
       && symbols === false
     ) {
-      alert('No checkbox has been selected!');
+      toast.error('No checkbox has been selected!');
       return null;
     }
 
     if (initialTextLength >= passwordLength) {
-      alert('Initial text will not be used, character limit has been exceeded!');
+      toast.error('Initial text will not be used, character limit has been exceeded!');
       initialTextLength = 0;
     }
 
@@ -112,7 +114,7 @@ const PasswordGeneratorMain: React.FC = () => {
     textarea?.select();
     document?.execCommand('copy');
     textarea?.remove();
-    alert('Password copied to clipboard!');
+    toast.success('Password copied to clipboard!');
   };
 
   return (
@@ -178,6 +180,7 @@ const PasswordGeneratorMain: React.FC = () => {
       >
         Generate Password
       </GeneratePasswordButton>
+      <ToastContainer />
     </Container>
   );
 };
