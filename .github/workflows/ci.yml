@@ -4,9 +4,12 @@ on:
   pull_request:
 
 jobs:
-  build:
+  commitlint:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Check commit message
-        uses: wagoid/commitlint-github-action@v1
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
