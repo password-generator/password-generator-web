@@ -9,7 +9,6 @@
     ]
   },
   "dependencies": {
-    "eslint": "^7.6.0",
     "lint-staged": "^10.2.11",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -28,6 +27,7 @@
     "@typescript-eslint/parser": "^3.9.0",
     "commitizen": "^4.1.2",
     "cz-conventional-changelog": "^3.2.0",
+    "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-import-resolver-typescript": "^2.2.0",
     "eslint-plugin-import": "^2.7.0",
