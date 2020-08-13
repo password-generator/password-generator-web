@@ -1,9 +1,9 @@
-import 'styled-components'
+import 'styled-components';
 
 declare module 'styled-components' {
   export interface DefaultTheme {
     mainBlue: string
-    secundaryBlue: string
+    secondaryBlue: string
     mainPurple: string
     white: string
     ice: string

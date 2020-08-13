@@ -1,9 +1,9 @@
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
   .App {
     font-family: 'Muli', sans-serif;
-    color: ${props => props.theme.white};
+    color: ${(props) => props.theme.white};
     text-align: center;
     flex: 1;
     height: 100%;
@@ -14,11 +14,11 @@ export default createGlobalStyle`
 
   body {
     height: 100vh;
-    background-color: ${props => props.theme.mainPurple};
+    background-color: ${(props) => props.theme.mainPurple};
     margin: 0;
     font-size: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-`
+`;

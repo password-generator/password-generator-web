@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+
+import ClipboardIcon from '../../clipboard-icon.png';
 import {
   Container,
   Title,
@@ -10,36 +12,36 @@ import {
   GeneratePasswordButton,
   DefaultInitialTextInput,
   CheckBox,
-} from './styles'
+} from './styles';
 
 const PasswordGeneratorMain: React.FC = () => {
-  const [password, setPassword] = useState('')
-  const [password_length, setPasswordLength] = useState(6)
-  const [uppercase, setUppercase] = useState(true)
-  const [lowercase, setLowercase] = useState(false)
-  const [numbers, setNumbers] = useState(true)
-  const [symbols, setSymbols] = useState(false)
-  const [initial_text, setInitialText] = useState('')
+  const [password, setPassword] = useState('');
+  const [passwordLength, setPasswordLength] = useState(6);
+  const [uppercase, setUppercase] = useState(true);
+  const [lowercase, setLowercase] = useState(false);
+  const [numbers, setNumbers] = useState(true);
+  const [symbols, setSymbols] = useState(false);
+  const [initialText, setInitialText] = useState('');
 
   const generateRandomCharacter = {
     uppercase() {
-      return String.fromCharCode(Math.floor(Math.random() * 26) + 65)
+      return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
     },
     lowercase() {
-      return String.fromCharCode(Math.floor(Math.random() * 26) + 97)
+      return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
     },
     numbers() {
-      return String.fromCharCode(Math.floor(Math.random() * 10) + 48)
+      return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
     },
     symbols() {
-      const symbols = '!@#$%^&*(){}[]=<>/,.'
-      return symbols[Math.floor(Math.random() * symbols.length)]
+      const symbolsString = '!@#$%^&*(){}[]=<>/,.';
+      return symbolsString[Math.floor(Math.random() * symbolsString.length)];
     },
-  }
+  };
 
   const generatePassword = () => {
-    let pass = ''
-    let initial_text_length = initial_text.length
+    let pass = '';
+    let initialTextLength = initialText.length;
 
     const checks = [
       uppercase,
@@ -50,61 +52,68 @@ const PasswordGeneratorMain: React.FC = () => {
       'numbers',
       symbols,
       'symbols',
-    ] // pair = value / odd = target //
+    ]; // pair = value / odd = target //
 
-    if (password_length < 6 || password_length > 20) {
-      alert('Invalid password lenght!')
-      return null
+    if (passwordLength < 6 || passwordLength > 20) {
+      alert('Invalid password length!');
+      return null;
     }
 
     if (
-      uppercase === false &&
-      lowercase === false &&
-      numbers === false &&
-      symbols === false
+      uppercase === false
+      && lowercase === false
+      && numbers === false
+      && symbols === false
     ) {
-      alert('No checkbox has been selected!')
-      return null
+      alert('No checkbox has been selected!');
+      return null;
     }
 
-    if (initial_text_length >= password_length) {
-      alert('Initial text will not be used, character limit has been exceeded!')
-      initial_text_length = 0
+    if (initialTextLength >= passwordLength) {
+      alert('Initial text will not be used, character limit has been exceeded!');
+      initialTextLength = 0;
     }
 
-    for (let i = 0, n = 0; i < password_length - initial_text_length; i += 1) {
-      const value = checks[n]
+    for (let i = 0, n = 0; i < passwordLength - initialTextLength; i += 1) {
+      const value = checks[n];
       const target = checks[n + 1] as
         | 'uppercase'
         | 'lowercase'
         | 'numbers'
-        | 'symbols'
+        | 'symbols';
 
-      value === true ? (pass += generateRandomCharacter[target]()) : (i -= 1)
-
-      n === 8 ? (n = 0) : (n += 2)
+      if (value === true) {
+        pass += generateRandomCharacter[target]();
+      } else {
+        i -= 1;
+      }
+      if (n === 8) {
+        n = 0;
+      } else {
+        n += 2;
+      }
     }
 
     pass = pass
       .split('')
       .sort(() => 0.5 - Math.random())
-      .join('')
+      .join('');
 
-    return initial_text_length > 0 ? `${initial_text}${pass}` : pass
-  }
+    return initialTextLength > 0 ? `${initialText}${pass}` : pass;
+  };
 
   const copyToClipboard = () => {
-    const textarea = document.createElement('textarea')
+    const textarea = document.createElement('textarea');
 
-    if (password === null) return
+    if (password === null) return;
 
-    textarea?.setAttribute('value', password)
-    document.body.appendChild(textarea)
-    textarea?.select()
-    document?.execCommand('copy')
-    textarea?.remove()
-    alert('Password copied to clipboard!')
-  }
+    textarea?.setAttribute('value', password);
+    document.body.appendChild(textarea);
+    textarea?.select();
+    document?.execCommand('copy');
+    textarea?.remove();
+    alert('Password copied to clipboard!');
+  };
 
   return (
     <Container>
@@ -112,13 +121,13 @@ const PasswordGeneratorMain: React.FC = () => {
 
       <ResultContainer>
         <ResultSpan>{password}</ResultSpan>
-        <ResultCopyToClipboardButton id='clipboard' onClick={copyToClipboard}>
+        <ResultCopyToClipboardButton id="clipboard" onClick={copyToClipboard}>
           <img
-            src={require('../../clipboard-icon.png')}
-            alt='Copy'
+            src={ClipboardIcon}
+            alt="Copy"
             width={40}
             height={40}
-          ></img>
+          />
         </ResultCopyToClipboardButton>
       </ResultContainer>
 
@@ -126,16 +135,16 @@ const PasswordGeneratorMain: React.FC = () => {
         <Setting>
           <label>Password Length</label>
           <PasswordLengthInput
-            value={password_length}
-            onChange={e => setPasswordLength(Number(e.target.value))}
+            value={passwordLength}
+            onChange={(e) => setPasswordLength(Number(e.target.value))}
           />
         </Setting>
 
         <Setting>
           <label>Add Initial Text</label>
           <DefaultInitialTextInput
-            value={initial_text}
-            onChange={e => setInitialText(e.target.value)}
+            value={initialText}
+            onChange={(e) => setInitialText(e.target.value)}
           />
         </Setting>
 
@@ -146,12 +155,12 @@ const PasswordGeneratorMain: React.FC = () => {
 
         <Setting>
           <label>Include Lowercase Letters</label>
-          <CheckBox onChange={() => setLowercase(!lowercase)} />
+          <CheckBox id="lowercase" onChange={() => setLowercase(!lowercase)} />
         </Setting>
 
         <Setting>
           <label>Include Numbers</label>
-          <CheckBox defaultChecked onChange={() => setNumbers(!numbers)} />
+          <CheckBox id="numbers" defaultChecked onChange={() => setNumbers(!numbers)} />
         </Setting>
 
         <Setting>
@@ -162,15 +171,15 @@ const PasswordGeneratorMain: React.FC = () => {
 
       <GeneratePasswordButton
         onClick={() => {
-          const password_generated = generatePassword()
-          if (password_generated === null) return
-          setPassword(password_generated)
+          const passwordGenerated = generatePassword();
+          if (passwordGenerated === null) return;
+          setPassword(passwordGenerated);
         }}
       >
         Generate Password
       </GeneratePasswordButton>
     </Container>
-  )
-}
+  );
+};
 
-export default PasswordGeneratorMain
+export default PasswordGeneratorMain;
