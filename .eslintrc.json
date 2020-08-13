@@ -58,7 +58,11 @@
     "react-hooks/exhaustive-deps": "error",
     "import/extensions": [
       "error",
-      "never"
+      {
+        "ts": "never",
+        "tsx": "never",
+        "css": "always"
+      }
     ]
   },
   "settings": {
@@ -66,13 +70,15 @@
       "node": {
         "extensions": [
           ".ts",
-          ".tsx"
+          ".tsx",
+          ".css"
         ]
       }
     },
     "import/extensions": [
       ".ts",
-      ".tsx"
+      ".tsx",
+      ".css"
     ],
     "import/parsers": {
       "@typescript-eslint/parser": [
