@@ -56,7 +56,7 @@ const PasswordGeneratorMain: React.FC = () => {
       'symbols',
     ]; // pair = value / odd = target //
 
-    if (passwordLength < 6 || passwordLength > 20) 
+    if (passwordLength < 6 || passwordLength > 20) {
       toast.error('Invalid password length!');
       return null;
     }
