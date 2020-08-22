@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# Password Generato
+# Password Generator
 Web site created to generate good passwords.
 
 [![screenshot](https://user-images.githubusercontent.com/60241602/82554572-964a0d80-9b3c-11ea-962c-f4945be537d6.png)](https://password-generato.herokuapp.com)
