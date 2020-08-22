@@ -36,14 +36,17 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.0.8",
-    "husky": "^4.2.5"
+    "husky": "^4.2.5",
+    "cypress": "5.0.0"
   },
   "scripts": {
     "commit": "git-cz",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress-open" : "cypress open",
+    "cypress-run" : "cypress run"
   },
   "eslintConfig": {
     "extends": "react-app"
