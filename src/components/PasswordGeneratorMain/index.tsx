@@ -104,18 +104,7 @@ const PasswordGeneratorMain: React.FC = () => {
     return initialTextLength > 0 ? `${initialText}${pass}` : pass;
   };
 
-  const copyToClipboard = () => {
-    const textarea = document.createElement('textarea');
-
-    if (password === null) return;
-
-    textarea?.setAttribute('value', password);
-    document.body.appendChild(textarea);
-    textarea?.select();
-    document?.execCommand('copy');
-    textarea?.remove();
-    toast.success('Password copied to clipboard!');
-  };
+ const copyToClipboard = () => navigator.clipboard.writeText(password);
 
   return (
     <Container>
