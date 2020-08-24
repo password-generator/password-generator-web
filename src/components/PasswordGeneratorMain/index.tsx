@@ -104,7 +104,7 @@ const PasswordGeneratorMain: React.FC = () => {
     return initialTextLength > 0 ? `${initialText}${pass}` : pass;
   };
 
- const copyToClipboard = () => navigator.clipboard.writeText(password);
+ const copyToClipboard = () => password && navigator.clipboard.writeText(password);
 
   return (
     <Container>
