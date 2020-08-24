@@ -23,7 +23,8 @@
     "react-hooks"
   ],
   "extends": [
-    "airbnb"
+    "airbnb",
+    "react-app"
   ],
   "rules": {
     "no-unused-expressions": "off",
