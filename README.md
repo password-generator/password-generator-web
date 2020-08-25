@@ -1,73 +1,75 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h1 align="center">Password Generator</h1>
 
-# Password Generator
-Web site created to generate good passwords.
+<p align="center">	
+  <a href="https://github.com/password-generator/password-generator-web#readme">
+    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" target="_blank" />
+  </a>
+  <a href="https://github.com/password-generator/password-generator-web/graphs/commit-activity">
+    <img alt="Maintenance" src="https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg" target="_blank" />
+  </a>
+  <a href="https://github.com/password-generator/password-generator-web/blob/master/LICENSE">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" target="_blank" />
+  </a>
+  <img alt="GitHub Pull Requests" src="https://img.shields.io/github/issues-pr/password-generator/password-generator-web" />
+  <img alt="GitHub Contributors" src="https://img.shields.io/github/contributors/password-generator/password-generator-web" />
+  <img alt="" src="https://img.shields.io/github/repo-size/password-generator/password-generator-web" />
+</p>
 
+> Web site created to generate good passwords.
+
+# :pushpin: Table of Contents
+
+* [Demo Website](#eyes-demo-website)
+* [Technologies](#computer-technologies)
+* [Features](#rocket-features)
+* [How to run](#construction_worker-how-to-run)
+* [Found a bug? Missing a specific feature?](#bug-issues)
+* [Contributing](#tada-contributing)
+* [License](#closed_book-license)
+
+### Screenshots
 [![screenshot](https://user-images.githubusercontent.com/60241602/82554572-964a0d80-9b3c-11ea-962c-f4945be537d6.png)](https://password-generato.herokuapp.com)
 
-## Available Scripts
+# :eyes: Demo Website
+👉  demo: https://password-generator-web.netlify.app/
 
-In the project directory, you can run:
+# :computer: Technologies
+This project was made using the follow technologies:
 
-### `npm start`
+* [React](https://reactjs.org/) 
+* [Cypress](https://www.cypress.io/)   
 
+# :rocket: Features
+
+- Generate storng passwords.   
+
+# :construction_worker: How to run
+### Install Dependencies
+```bash
+npm install
+```
+### Run Aplication
+```bash 
+npm start
+```
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+# :bug: Issues
 
-### `npm test`
+Feel free to **file a new issue** with a respective title and description on the the [Password Generator](https://github.com/password-generator/password-generator-web/issues) repository. If you already found a solution to your problem, **i would love to review your pull request**!
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# :tada: Contributing
+First of all, thank you for being interested in helping out, your time is always appreciated in every way. :100:
 
-### `npm run build`
+Here's some tips:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Check the [issues page](https://github.com/password-generator/password-generator-web/issues) for already opened issues (or maybe even closed ones) that might already address your question/bug/feature request.
+* Feature requests are welcomed! Provide some details on why it would be helpful for you and others, explain how you're using bull-board and if possible even some screenshots if you are willing to mock something!
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Check out the [contributing](./CONTRIBUTING.md) page to see the best places to file issues, start discussions and begin contributing.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# :closed_book: License
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Released in 2020.
+This project is under the [MIT license](./LICENSE).
