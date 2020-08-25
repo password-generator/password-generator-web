@@ -61,12 +61,7 @@ const PasswordGeneratorMain: React.FC = () => {
       return null;
     }
 
-    if (
-      uppercase === false
-      && lowercase === false
-      && numbers === false
-      && symbols === false
-    ) {
+    if (!uppercase && !lowercase && !numbers && !symbols) {
       toast.error('No checkbox has been selected!');
       return null;
     }
@@ -104,7 +99,7 @@ const PasswordGeneratorMain: React.FC = () => {
     return initialTextLength > 0 ? `${initialText}${pass}` : pass;
   };
 
- const copyToClipboard = () => password && navigator.clipboard.writeText(password);
+  const copyToClipboard = () => password && navigator.clipboard.writeText(password);
 
   return (
     <Container>
