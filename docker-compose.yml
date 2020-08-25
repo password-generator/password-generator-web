@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  web:
+    container_name: password-generator-web
+    build:
+      context: .
+      dockerfile: docker/app.dockerfile
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+    network_mode: host
+    stdin_open: true
+    command: npm run start
+  e2e:
+    container_name: password-generator-e2e
+    depends_on: 
+      - web
+    build: 
+      context: .
+      dockerfile: docker/e2e.dockerfile
+    environment:
+      - CI=1
+      - CYPRESS_baseUrl=http://localhost:3000
+    volumes:
+      - ./cypress:/app/cypress
+    network_mode: host
+    command: npx cypress run
