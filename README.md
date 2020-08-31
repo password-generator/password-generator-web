@@ -37,23 +37,69 @@
 This project was made using the follow technologies:
 
 * [React](https://reactjs.org/) 
-* [Cypress](https://www.cypress.io/)   
+* [Cypress](https://www.cypress.io/)
+* [Docker](https://www.docker.com/)
 
 # :rocket: Features
 
 - Generate storng passwords.   
 
 # :construction_worker: How to run
+
+## Using node
+
 ### Install Dependencies
 ```bash
 npm install
+```
+or,
+```bash
+yarn
 ```
 ### Run Aplication
 ```bash 
 npm start
 ```
+or,
+```bash 
+yarn start
+```
+
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+### Run tests
+
+```bash
+npm run cypress-open
+```
+or,
+```bash
+yarn cypress-open
+```
+
+## Using docker
+
+### Create Containers
+
+```bash
+sh ./scripts/docker-compose-setup.sh
+```
+
+### Run Aplication
+
+```bash
+sh ./scripts/start-server.sh
+```
+
+Runs the app in the development mode.<br />
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+### Run tests
+
+```bash
+sh ./scripts/run-tests.sh
+```
 
 # :bug: Issues
 
