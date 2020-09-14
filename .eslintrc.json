@@ -20,13 +20,15 @@
     "@typescript-eslint",
     "import",
     "import-helpers",
-    "react-hooks"
+    "react-hooks",
+    "prettier"
   ],
   "extends": [
-    "airbnb",
-    "react-app"
+    "prettier",
+    "airbnb"
   ],
   "rules": {
+    "prettier/prettier": "error",
     "no-unused-expressions": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "react/jsx-filename-extension": [

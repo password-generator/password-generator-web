@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { generatePassword } from '@password-generator/package';
+
 import ClipboardIcon from '../../clipboard-icon.png';
 import {
   Container,
@@ -19,87 +21,47 @@ import {
 const PasswordGeneratorMain: React.FC = () => {
   const [password, setPassword] = useState('');
   const [passwordLength, setPasswordLength] = useState(6);
+  const [pronounceable, setPronounceable] = useState(false);
   const [uppercase, setUppercase] = useState(true);
   const [lowercase, setLowercase] = useState(false);
   const [numbers, setNumbers] = useState(true);
   const [symbols, setSymbols] = useState(false);
+  const [cachedSettings, setCachedSettings] = useState({
+    uppercase: true,
+    lowercase: false,
+    numbers: true,
+    symbols: false,
+  });
   const [initialText, setInitialText] = useState('');
 
-  const generateRandomCharacter = {
-    uppercase() {
-      return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
-    },
-    lowercase() {
-      return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
-    },
-    numbers() {
-      return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
-    },
-    symbols() {
-      const symbolsString = '!@#$%^&*(){}[]=<>/,.';
-      return symbolsString[Math.floor(Math.random() * symbolsString.length)];
-    },
+  const copyToClipboard = () => {
+    if (password) {
+      navigator.clipboard.writeText(password);
+      toast.success('Password was copied to y;our clipbo;ard');
+    }
   };
 
-  const generatePassword = () => {
-    let pass = '';
-    let initialTextLength = initialText.length;
-
-    const checks = [
-      uppercase,
-      'uppercase',
-      lowercase,
-      'lowercase',
-      numbers,
-      'numbers',
-      symbols,
-      'symbols',
-    ]; // pair = value / odd = target //
-
-    if (passwordLength < 6 || passwordLength > 20) {
-      toast.error('Invalid password length!');
-      return null;
+  const toogleGeneratePronunceablePassword = () => {
+    if (pronounceable === false) {
+      setCachedSettings({
+        uppercase,
+        lowercase,
+        numbers,
+        symbols,
+      });
+      setUppercase(false);
+      setLowercase(false);
+      setNumbers(false);
+      setSymbols(false);
+      setPronounceable(true);
+    } else {
+      setUppercase(cachedSettings.uppercase);
+      setLowercase(cachedSettings.lowercase);
+      setNumbers(cachedSettings.numbers);
+      setSymbols(cachedSettings.symbols);
+      setPronounceable(false);
     }
-
-    if (!uppercase && !lowercase && !numbers && !symbols) {
-      toast.error('No checkbox has been selected!');
-      return null;
-    }
-
-    if (initialTextLength >= passwordLength) {
-      toast.error('Initial text will not be used, character limit has been exceeded!');
-      initialTextLength = 0;
-    }
-
-    for (let i = 0, n = 0; i < passwordLength - initialTextLength; i += 1) {
-      const value = checks[n];
-      const target = checks[n + 1] as
-        | 'uppercase'
-        | 'lowercase'
-        | 'numbers'
-        | 'symbols';
-
-      if (value === true) {
-        pass += generateRandomCharacter[target]();
-      } else {
-        i -= 1;
-      }
-      if (n === 8) {
-        n = 0;
-      } else {
-        n += 2;
-      }
-    }
-
-    pass = pass
-      .split('')
-      .sort(() => 0.5 - Math.random())
-      .join('');
-
-    return initialTextLength > 0 ? `${initialText}${pass}` : pass;
   };
-
-  const copyToClipboard = () => password && navigator.clipboard.writeText(password);
 
   return (
     <Container>
@@ -108,12 +70,7 @@ const PasswordGeneratorMain: React.FC = () => {
       <ResultContainer>
         <ResultSpan id="resultSpan">{password}</ResultSpan>
         <ResultCopyToClipboardButton id="clipboard" onClick={copyToClipboard}>
-          <img
-            src={ClipboardIcon}
-            alt="Copy"
-            width={40}
-            height={40}
-          />
+          <img src={ClipboardIcon} alt="Copy" width={40} height={40} />
         </ResultCopyToClipboardButton>
       </ResultContainer>
 
@@ -137,35 +94,76 @@ const PasswordGeneratorMain: React.FC = () => {
         </Setting>
 
         <Setting>
+          <label>Pronounceable Password</label>
+          <CheckBox
+            checked={pronounceable}
+            onChange={toogleGeneratePronunceablePassword}
+          />
+        </Setting>
+
+        <Setting>
           <label>Include Uppercase Letters</label>
-          <CheckBox id="uppercase" defaultChecked onChange={() => setUppercase(!uppercase)} />
+          <CheckBox
+            id="uppercase"
+            checked={uppercase}
+            onChange={() => setUppercase(!uppercase)}
+            disabled={pronounceable}
+          />
         </Setting>
 
         <Setting>
           <label>Include Lowercase Letters</label>
-          <CheckBox id="lowercase" onChange={() => setLowercase(!lowercase)} />
+          <CheckBox
+            id="lowercase"
+            checked={lowercase}
+            onChange={() => setLowercase(!lowercase)}
+            disabled={pronounceable}
+          />
         </Setting>
 
         <Setting>
           <label>Include Numbers</label>
-          <CheckBox id="numbers" defaultChecked onChange={() => setNumbers(!numbers)} />
+          <CheckBox
+            id="numbers"
+            checked={numbers}
+            onChange={() => setNumbers(!numbers)}
+            disabled={pronounceable}
+          />
         </Setting>
 
         <Setting>
           <label>Include Symbols</label>
-          <CheckBox onChange={() => setSymbols(!symbols)} />
+          <CheckBox
+            checked={symbols}
+            onChange={() => setSymbols(!symbols)}
+            disabled={pronounceable}
+          />
         </Setting>
       </div>
 
       <GeneratePasswordButton
         id="generatePasswordButton"
         onClick={() => {
-          const passwordGenerated = generatePassword();
-          if (passwordGenerated === null) return;
-          setPassword(passwordGenerated);
+          try {
+            const passwordGenerated = generatePassword({
+              length: passwordLength,
+              initialText,
+              useChars: {
+                pronounceable,
+                uppercase,
+                lowercase,
+                symbols,
+                numbers,
+              },
+            });
+            if (passwordGenerated === null) return;
+            setPassword(passwordGenerated);
+          } catch (error) {
+            toast.error(error.message);
+          }
         }}
       >
-        Generate Password
+        Generated Password
       </GeneratePasswordButton>
       <ToastContainer />
     </Container>
