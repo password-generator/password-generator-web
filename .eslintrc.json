@@ -16,22 +16,42 @@
     "sourceType": "module"
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "import", "import-helpers", "react-hooks"],
-  "extends": ["airbnb"],
+  "plugins": [
+    "@typescript-eslint",
+    "import",
+    "import-helpers",
+    "react-hooks",
+    "prettier"
+  ],
+  "extends": [
+    "prettier",
+    "airbnb"
+  ],
   "rules": {
+    "prettier/prettier": "error",
     "no-unused-expressions": "off",
     "jsx-a11y/label-has-associated-control": "off",
     "react/jsx-filename-extension": [
       "warn",
       {
-        "extensions": [".tsx"]
+        "extensions": [
+          ".tsx"
+        ]
       }
     ],
     "import-helpers/order-imports": [
       "error",
       {
         "newlinesBetween": "always",
-        "groups": ["/^react/", "module", ["parent", "sibling", "index"]],
+        "groups": [
+          "/^react/",
+          "module",
+          [
+            "parent",
+            "sibling",
+            "index"
+          ]
+        ],
         "alphabetize": {
           "order": "asc",
           "ignoreCase": true
@@ -52,12 +72,23 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".ts", ".tsx", ".css"]
+        "extensions": [
+          ".ts",
+          ".tsx",
+          ".css"
+        ]
       }
     },
-    "import/extensions": [".ts", ".tsx", ".css"],
+    "import/extensions": [
+      ".ts",
+      ".tsx",
+      ".css"
+    ],
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts", ".tsx"]
+      "@typescript-eslint/parser": [
+        ".ts",
+        ".tsx"
+      ]
     }
   }
 }
