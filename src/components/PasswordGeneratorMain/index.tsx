@@ -26,6 +26,12 @@ const PasswordGeneratorMain: React.FC = () => {
   const [lowercase, setLowercase] = useState(false);
   const [numbers, setNumbers] = useState(true);
   const [symbols, setSymbols] = useState(false);
+  const [cachedSettings, setCachedSettings] = useState({
+    uppercase: true,
+    lowercase: false,
+    numbers: true,
+    symbols: false,
+  });
   const [initialText, setInitialText] = useState('');
 
   const copyToClipboard = () => {
@@ -37,16 +43,22 @@ const PasswordGeneratorMain: React.FC = () => {
 
   const toogleGeneratePronunceablePassword = () => {
     if (pronounceable === false) {
+      setCachedSettings({
+        uppercase,
+        lowercase,
+        numbers,
+        symbols,
+      });
       setUppercase(false);
       setLowercase(false);
       setNumbers(false);
       setSymbols(false);
       setPronounceable(true);
     } else {
-      setUppercase(true);
-      setLowercase(false);
-      setNumbers(true);
-      setSymbols(false);
+      setUppercase(cachedSettings.uppercase);
+      setLowercase(cachedSettings.lowercase);
+      setNumbers(cachedSettings.numbers);
+      setSymbols(cachedSettings.symbols);
       setPronounceable(false);
     }
   };
