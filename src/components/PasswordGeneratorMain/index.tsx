@@ -34,14 +34,14 @@ const PasswordGeneratorMain: React.FC = () => {
   });
   const [initialText, setInitialText] = useState('');
 
-  const copyToClipboard = () => {
+  const handleCopyToClipboard = () => {
     if (password) {
       navigator.clipboard.writeText(password);
-      toast.success('Password was copied to y;our clipbo;ard');
+      toast.success('Password was copied to your clipboard');
     }
   };
 
-  const toogleGeneratePronunceablePassword = () => {
+  const handleToogleGeneratePronunceablePassword = () => {
     if (pronounceable === false) {
       setCachedSettings({
         uppercase,
@@ -63,13 +63,36 @@ const PasswordGeneratorMain: React.FC = () => {
     }
   };
 
+  const handleFormSubmit = () => {
+    try {
+      const passwordGenerated = generatePassword({
+        length: passwordLength,
+        initialText,
+        useChars: {
+          pronounceable,
+          uppercase,
+          lowercase,
+          symbols,
+          numbers,
+        },
+      });
+      if (passwordGenerated === null) return;
+      setPassword(passwordGenerated);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   return (
-    <Container>
+    <Container onSubmit={handleFormSubmit}>
       <Title>Password Generator</Title>
 
       <ResultContainer>
         <ResultSpan id="resultSpan">{password}</ResultSpan>
-        <ResultCopyToClipboardButton id="clipboard" onClick={copyToClipboard}>
+        <ResultCopyToClipboardButton
+          id="clipboard"
+          onClick={handleCopyToClipboard}
+        >
           <img src={ClipboardIcon} alt="Copy" width={40} height={40} />
         </ResultCopyToClipboardButton>
       </ResultContainer>
@@ -97,7 +120,7 @@ const PasswordGeneratorMain: React.FC = () => {
           <label>Pronounceable Password</label>
           <CheckBox
             checked={pronounceable}
-            onChange={toogleGeneratePronunceablePassword}
+            onChange={handleToogleGeneratePronunceablePassword}
           />
         </Setting>
 
@@ -141,28 +164,7 @@ const PasswordGeneratorMain: React.FC = () => {
         </Setting>
       </div>
 
-      <GeneratePasswordButton
-        id="generatePasswordButton"
-        onClick={() => {
-          try {
-            const passwordGenerated = generatePassword({
-              length: passwordLength,
-              initialText,
-              useChars: {
-                pronounceable,
-                uppercase,
-                lowercase,
-                symbols,
-                numbers,
-              },
-            });
-            if (passwordGenerated === null) return;
-            setPassword(passwordGenerated);
-          } catch (error) {
-            toast.error(error.message);
-          }
-        }}
-      >
+      <GeneratePasswordButton type="submit" id="generatePasswordButton">
         Generated Password
       </GeneratePasswordButton>
       <ToastContainer />

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Container = styled.main`
+export const Container = styled.form`
   background-color: ${(props) => props.theme.mainBlue};
   box-shadow: 0px 2px 10px ${(props) => props.theme.gray};
   margin-top: 10vh;
@@ -29,8 +29,20 @@ export const ResultContainer = styled.div`
   width: 95%;
 `;
 export const ResultSpan = styled.span`
-  word-wrap: break-word;
+  max-height: 23.2px;
   max-width: calc(100% - 40px);
+  overflow-y: hidden !important;
+  overflow-x: auto;
+  scroll-margin-top: 3px;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${(props) => props.theme.gray};
+    border-radius: 3px;
+  }
 `;
 
 export const ResultCopyToClipboardButton = styled.button`
@@ -50,8 +62,8 @@ export const ResultCopyToClipboardButton = styled.button`
 
 export const PasswordLengthInput = styled.input.attrs({
   type: 'number',
-  min: '6',
-  max: '20',
+  min: '4',
+  max: '1024',
 })`
   font-size: 18px;
   &::-webkit-inner-spin-button {
