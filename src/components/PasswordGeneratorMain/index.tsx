@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
+import 'react-toastify/dist/ReactToastify.css';
 import { generatePassword } from '@password-generator/package';
 
 import ClipboardIcon from '../../clipboard-icon.png';
@@ -63,7 +63,8 @@ const PasswordGeneratorMain: React.FC = () => {
     }
   };
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = (e: FormEvent) => {
+    e.preventDefault();
     try {
       const passwordGenerated = generatePassword({
         length: passwordLength,
@@ -119,6 +120,7 @@ const PasswordGeneratorMain: React.FC = () => {
         <Setting>
           <label>Pronounceable Password</label>
           <CheckBox
+            id="pronounceable"
             checked={pronounceable}
             onChange={handleToogleGeneratePronunceablePassword}
           />
@@ -157,6 +159,7 @@ const PasswordGeneratorMain: React.FC = () => {
         <Setting>
           <label>Include Symbols</label>
           <CheckBox
+            id="symbols"
             checked={symbols}
             onChange={() => setSymbols(!symbols)}
             disabled={pronounceable}
