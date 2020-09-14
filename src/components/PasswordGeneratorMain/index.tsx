@@ -21,7 +21,7 @@ import {
 const PasswordGeneratorMain: React.FC = () => {
   const [password, setPassword] = useState('');
   const [passwordLength, setPasswordLength] = useState(6);
-  const [pronunceable, setPronunceable] = useState(false);
+  const [pronounceable, setPronounceable] = useState(false);
   const [uppercase, setUppercase] = useState(true);
   const [lowercase, setLowercase] = useState(false);
   const [numbers, setNumbers] = useState(true);
@@ -31,23 +31,23 @@ const PasswordGeneratorMain: React.FC = () => {
   const copyToClipboard = () => {
     if (password) {
       navigator.clipboard.writeText(password);
-      toast.success('Password was copied to your clipboard');
+      toast.success('Password was copied to y;our clipbo;ard');
     }
   };
 
   const toogleGeneratePronunceablePassword = () => {
-    if (pronunceable === false) {
+    if (pronounceable === false) {
       setUppercase(false);
       setLowercase(false);
       setNumbers(false);
       setSymbols(false);
-      setPronunceable(true);
+      setPronounceable(true);
     } else {
       setUppercase(true);
       setLowercase(false);
       setNumbers(true);
       setSymbols(false);
-      setPronunceable(false);
+      setPronounceable(false);
     }
   };
 
@@ -82,9 +82,9 @@ const PasswordGeneratorMain: React.FC = () => {
         </Setting>
 
         <Setting>
-          <label>Pronunceable Password</label>
+          <label>Pronounceable Password</label>
           <CheckBox
-            checked={pronunceable}
+            checked={pronounceable}
             onChange={toogleGeneratePronunceablePassword}
           />
         </Setting>
@@ -95,6 +95,7 @@ const PasswordGeneratorMain: React.FC = () => {
             id="uppercase"
             checked={uppercase}
             onChange={() => setUppercase(!uppercase)}
+            disabled={pronounceable}
           />
         </Setting>
 
@@ -104,6 +105,7 @@ const PasswordGeneratorMain: React.FC = () => {
             id="lowercase"
             checked={lowercase}
             onChange={() => setLowercase(!lowercase)}
+            disabled={pronounceable}
           />
         </Setting>
 
@@ -113,12 +115,17 @@ const PasswordGeneratorMain: React.FC = () => {
             id="numbers"
             checked={numbers}
             onChange={() => setNumbers(!numbers)}
+            disabled={pronounceable}
           />
         </Setting>
 
         <Setting>
           <label>Include Symbols</label>
-          <CheckBox checked={symbols} onChange={() => setSymbols(!symbols)} />
+          <CheckBox
+            checked={symbols}
+            onChange={() => setSymbols(!symbols)}
+            disabled={pronounceable}
+          />
         </Setting>
       </div>
 
@@ -130,7 +137,7 @@ const PasswordGeneratorMain: React.FC = () => {
               length: passwordLength,
               initialText,
               useChars: {
-                pronounceable: pronunceable,
+                pronounceable,
                 uppercase,
                 lowercase,
                 symbols,
@@ -144,7 +151,7 @@ const PasswordGeneratorMain: React.FC = () => {
           }
         }}
       >
-        Generate Password
+        Generated Password
       </GeneratePasswordButton>
       <ToastContainer />
     </Container>
