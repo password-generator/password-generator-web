@@ -1,11 +1,13 @@
 {
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "mocha": true
   },
   "globals": {
     "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
+    "SharedArrayBuffer": "readonly",
+    "cy": "readonly"
   },
   "parserOptions": {
     "ecmaVersion": 2018,
@@ -23,35 +25,24 @@
     "react-hooks",
     "prettier"
   ],
-  "extends": [
-    "prettier",
-    "airbnb"
-  ],
+  "extends": ["prettier", "airbnb"],
   "rules": {
     "prettier/prettier": "error",
     "no-unused-expressions": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
     "jsx-a11y/label-has-associated-control": "off",
     "react/jsx-filename-extension": [
       "warn",
       {
-        "extensions": [
-          ".tsx"
-        ]
+        "extensions": [".tsx"]
       }
     ],
     "import-helpers/order-imports": [
       "error",
       {
         "newlinesBetween": "always",
-        "groups": [
-          "/^react/",
-          "module",
-          [
-            "parent",
-            "sibling",
-            "index"
-          ]
-        ],
+        "groups": ["/^react/", "module", ["parent", "sibling", "index"]],
         "alphabetize": {
           "order": "asc",
           "ignoreCase": true
@@ -72,23 +63,12 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [
-          ".ts",
-          ".tsx",
-          ".css"
-        ]
+        "extensions": [".ts", ".tsx", ".css"]
       }
     },
-    "import/extensions": [
-      ".ts",
-      ".tsx",
-      ".css"
-    ],
+    "import/extensions": [".ts", ".tsx", ".css"],
     "import/parsers": {
-      "@typescript-eslint/parser": [
-        ".ts",
-        ".tsx"
-      ]
+      "@typescript-eslint/parser": [".ts", ".tsx"]
     }
   }
 }
