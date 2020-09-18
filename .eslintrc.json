@@ -7,6 +7,7 @@
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly",
+    "Cypress": "readonly",
     "cy": "readonly"
   },
   "parserOptions": {
@@ -42,7 +43,12 @@
       "error",
       {
         "newlinesBetween": "always",
-        "groups": ["/^react/", "module", ["parent", "sibling", "index"]],
+        "groups": [
+          "/^react/",
+          "/^styled-components$/",
+          "module",
+          ["parent", "sibling", "index"]
+        ],
         "alphabetize": {
           "order": "asc",
           "ignoreCase": true
