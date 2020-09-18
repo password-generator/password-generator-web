@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { lighten } from 'polished';
+
 export const Container = styled.form`
   background-color: ${(props) => props.theme.mainBlue};
   box-shadow: 0px 2px 10px ${(props) => props.theme.gray};
@@ -28,21 +30,30 @@ export const ResultContainer = styled.div`
   height: 30px;
   width: 95%;
 `;
-export const ResultSpan = styled.span`
+export const ResultSpan = styled.input`
+  background-color: ${(props) => lighten(0.15, props.theme.blackBlue)};
+  color: #fff;
+  font-size: 18px;
+  appearance: none;
+  outline: none;
+  border: none;
   max-height: 23.2px;
+  min-width: calc(100% - 35px);
   max-width: calc(100% - 40px);
-  overflow-y: hidden !important;
-  overflow-x: auto;
-  scroll-margin-top: 3px;
+  &::selection {
+    background-color: ${(props) => props.theme.gray};
+  }
+  /* overflow-y: hidden !important;
+  overflow-x: auto; */
 
-  &::-webkit-scrollbar {
+  /* &::-webkit-scrollbar {
     height: 5px;
   }
 
   &::-webkit-scrollbar-thumb {
     background-color: ${(props) => props.theme.gray};
     border-radius: 3px;
-  }
+  } */
 `;
 
 export const ResultCopyToClipboardButton = styled.button`

@@ -89,9 +89,9 @@ const PasswordGeneratorMain: React.FC = () => {
       <Title>Password Generator</Title>
 
       <ResultContainer>
-        <ResultSpan id="resultSpan">{password}</ResultSpan>
+        <ResultSpan data-test-id="resultSpan" value={password} readOnly />
         <ResultCopyToClipboardButton
-          id="clipboard"
+          data-test-id="clipboard"
           onClick={handleCopyToClipboard}
         >
           <img src={ClipboardIcon} alt="Copy" width={40} height={40} />
@@ -102,7 +102,7 @@ const PasswordGeneratorMain: React.FC = () => {
         <Setting>
           <label>Password Length</label>
           <PasswordLengthInput
-            id="passwordLengthInput"
+            data-test-id="passwordLengthInput"
             value={passwordLength}
             onChange={(e) => setPasswordLength(Number(e.target.value))}
           />
@@ -111,7 +111,7 @@ const PasswordGeneratorMain: React.FC = () => {
         <Setting>
           <label>Add Initial Text</label>
           <DefaultInitialTextInput
-            id="defaultInitialTextInput"
+            data-test-id="defaultInitialTextInput"
             value={initialText}
             onChange={(e) => setInitialText(e.target.value)}
           />
@@ -120,7 +120,7 @@ const PasswordGeneratorMain: React.FC = () => {
         <Setting>
           <label>Pronounceable Password</label>
           <CheckBox
-            id="pronounceable"
+            data-test-id="pronounceable"
             checked={pronounceable}
             onChange={handleToogleGeneratePronunceablePassword}
           />
@@ -129,7 +129,7 @@ const PasswordGeneratorMain: React.FC = () => {
         <Setting>
           <label>Include Uppercase Letters</label>
           <CheckBox
-            id="uppercase"
+            data-test-id="uppercase"
             checked={uppercase}
             onChange={() => setUppercase(!uppercase)}
             disabled={pronounceable}
@@ -139,7 +139,7 @@ const PasswordGeneratorMain: React.FC = () => {
         <Setting>
           <label>Include Lowercase Letters</label>
           <CheckBox
-            id="lowercase"
+            data-test-id="lowercase"
             checked={lowercase}
             onChange={() => setLowercase(!lowercase)}
             disabled={pronounceable}
@@ -149,7 +149,7 @@ const PasswordGeneratorMain: React.FC = () => {
         <Setting>
           <label>Include Numbers</label>
           <CheckBox
-            id="numbers"
+            data-test-id="numbers"
             checked={numbers}
             onChange={() => setNumbers(!numbers)}
             disabled={pronounceable}
@@ -159,7 +159,7 @@ const PasswordGeneratorMain: React.FC = () => {
         <Setting>
           <label>Include Symbols</label>
           <CheckBox
-            id="symbols"
+            data-test-id="symbols"
             checked={symbols}
             onChange={() => setSymbols(!symbols)}
             disabled={pronounceable}
@@ -167,7 +167,10 @@ const PasswordGeneratorMain: React.FC = () => {
         </Setting>
       </div>
 
-      <GeneratePasswordButton type="submit" id="generatePasswordButton">
+      <GeneratePasswordButton
+        type="submit"
+        data-test-id="generatePasswordButton"
+      >
         Generated Password
       </GeneratePasswordButton>
       <ToastContainer />
