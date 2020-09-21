@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
   .App {
-    font-family: 'Muli', sans-serif;
+    font-family: 'Roboto', sans-serif;
     color: ${(props) => props.theme.white};
     text-align: center;
     flex: 1;
