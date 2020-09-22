@@ -5,11 +5,9 @@ import { lighten } from 'polished';
 export const Container = styled.form`
   background-color: ${(props) => props.theme.mainBlue};
   box-shadow: 0px 2px 10px ${(props) => props.theme.gray};
-  margin-top: 10vh;
   padding: 18px;
   border-radius: 20px;
-  width: 335px;
-  max-width: 75%;
+  width: 80%;
 `;
 
 export const Title = styled.h2`
@@ -31,7 +29,7 @@ export const ResultContainer = styled.div`
   width: 95%;
 `;
 export const ResultSpan = styled.input`
-  background-color: ${(props) => lighten(0.15, props.theme.blackBlue)};
+  background-color: ${(props) => lighten(0.1, props.theme.blackBlue)};
   color: #fff;
   font-size: 18px;
   appearance: none;
