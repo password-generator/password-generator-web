@@ -189,7 +189,7 @@ const PasswordGeneratorMain: React.FC = () => {
         type="submit"
         data-test-id="generatePasswordButton"
       >
-        Generated Password
+        Generate Password
       </GeneratePasswordButton>
       <ToastContainer />
     </Container>
