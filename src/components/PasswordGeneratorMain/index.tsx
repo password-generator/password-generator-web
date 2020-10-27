@@ -87,6 +87,7 @@ const PasswordGeneratorMain: React.FC = () => {
       <ResultContainer>
         <ResultSpan data-test-id="resultSpan" value={password} readOnly />
         <ResultCopyToClipboardButton
+          type="button"
           data-test-id="clipboard"
           onClick={handleCopyToClipboard}
         >
