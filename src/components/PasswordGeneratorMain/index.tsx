@@ -20,65 +20,61 @@ import {
 
 const PasswordGeneratorMain: React.FC = () => {
   const [password, setPassword] = useState('');
-  const [passwordLength, setPasswordLength] = useState(6);
-  const [pronounceable, setPronounceable] = useState(false);
-  const [uppercase, setUppercase] = useState(true);
-  const [lowercase, setLowercase] = useState(false);
-  const [numbers, setNumbers] = useState(true);
-  const [symbols, setSymbols] = useState(false);
-  const [cachedSettings, setCachedSettings] = useState({
+
+  const [preferences, setPreferences] = useState({
+    initialText: '',
+    passwordLength: 6,
+    pronounceable: false,
     uppercase: true,
     lowercase: false,
     numbers: true,
     symbols: false,
   });
-  const [initialText, setInitialText] = useState('');
+
+  const [cachedSettings, setCachedSettings] = useState({ ...preferences });
 
   const handleCopyToClipboard = () => {
     if (password) {
       navigator.clipboard.writeText(password);
-      toast.success('Password was copied to your clipboard');
+      toast.success('Password was copied to your clipboard!');
     }
   };
 
   const handleToogleGeneratePronunceablePassword = () => {
-    if (pronounceable === false) {
+    if (preferences.pronounceable === false) {
       setCachedSettings({
-        uppercase,
-        lowercase,
-        numbers,
-        symbols,
+        ...preferences,
       });
-      setUppercase(false);
-      setLowercase(false);
-      setNumbers(false);
-      setSymbols(false);
-      setPronounceable(true);
+      setPreferences({
+        ...preferences,
+        uppercase: false,
+        lowercase: false,
+        numbers: false,
+        symbols: false,
+        pronounceable: true,
+      });
     } else {
-      setUppercase(cachedSettings.uppercase);
-      setLowercase(cachedSettings.lowercase);
-      setNumbers(cachedSettings.numbers);
-      setSymbols(cachedSettings.symbols);
-      setPronounceable(false);
+      setPreferences({
+        ...cachedSettings,
+      });
     }
   };
 
-  const handleFormSubmit = (e: FormEvent) => {
-    e.preventDefault();
+  const handleFormSubmit = (event: FormEvent) => {
+    event.preventDefault();
     try {
       const passwordGenerated = generatePassword({
-        length: passwordLength,
-        initialText,
+        length: preferences.passwordLength,
+        initialText: preferences.initialText,
         useChars: {
-          pronounceable,
-          uppercase,
-          lowercase,
-          symbols,
-          numbers,
+          lowercase: preferences.lowercase,
+          numbers: preferences.numbers,
+          symbols: preferences.symbols,
+          uppercase: preferences.uppercase,
+          pronounceable: preferences.pronounceable,
         },
       });
-      if (passwordGenerated === null) return;
-      setPassword(passwordGenerated);
+      if (passwordGenerated !== null) setPassword(passwordGenerated);
     } catch (error) {
       toast.error(error.message);
     }
@@ -91,6 +87,7 @@ const PasswordGeneratorMain: React.FC = () => {
       <ResultContainer>
         <ResultSpan data-test-id="resultSpan" value={password} readOnly />
         <ResultCopyToClipboardButton
+          type="button"
           data-test-id="clipboard"
           onClick={handleCopyToClipboard}
         >
@@ -103,8 +100,13 @@ const PasswordGeneratorMain: React.FC = () => {
           <label>Password Length</label>
           <PasswordLengthInput
             data-test-id="passwordLengthInput"
-            value={passwordLength}
-            onChange={(e) => setPasswordLength(Number(e.target.value))}
+            value={preferences.passwordLength}
+            onChange={(e) => {
+              setPreferences({
+                ...preferences,
+                passwordLength: Number(e.target.value),
+              });
+            }}
           />
         </Setting>
 
@@ -112,8 +114,10 @@ const PasswordGeneratorMain: React.FC = () => {
           <label>Add Initial Text</label>
           <DefaultInitialTextInput
             data-test-id="defaultInitialTextInput"
-            value={initialText}
-            onChange={(e) => setInitialText(e.target.value)}
+            value={preferences.initialText}
+            onChange={(e) => {
+              setPreferences({ ...preferences, initialText: e.target.value });
+            }}
           />
         </Setting>
 
@@ -121,7 +125,7 @@ const PasswordGeneratorMain: React.FC = () => {
           <label>Pronounceable Password</label>
           <CheckBox
             data-test-id="pronounceable"
-            checked={pronounceable}
+            checked={preferences.pronounceable}
             onChange={handleToogleGeneratePronunceablePassword}
           />
         </Setting>
@@ -130,9 +134,14 @@ const PasswordGeneratorMain: React.FC = () => {
           <label>Include Uppercase Letters</label>
           <CheckBox
             data-test-id="uppercase"
-            checked={uppercase}
-            onChange={() => setUppercase(!uppercase)}
-            disabled={pronounceable}
+            checked={preferences.uppercase}
+            onChange={() => {
+              setPreferences({
+                ...preferences,
+                uppercase: !preferences.uppercase,
+              });
+            }}
+            disabled={preferences.pronounceable}
           />
         </Setting>
 
@@ -140,9 +149,14 @@ const PasswordGeneratorMain: React.FC = () => {
           <label>Include Lowercase Letters</label>
           <CheckBox
             data-test-id="lowercase"
-            checked={lowercase}
-            onChange={() => setLowercase(!lowercase)}
-            disabled={pronounceable}
+            checked={preferences.lowercase}
+            onChange={() => {
+              setPreferences({
+                ...preferences,
+                lowercase: !preferences.lowercase,
+              });
+            }}
+            disabled={preferences.pronounceable}
           />
         </Setting>
 
@@ -150,9 +164,11 @@ const PasswordGeneratorMain: React.FC = () => {
           <label>Include Numbers</label>
           <CheckBox
             data-test-id="numbers"
-            checked={numbers}
-            onChange={() => setNumbers(!numbers)}
-            disabled={pronounceable}
+            checked={preferences.numbers}
+            onChange={() => {
+              setPreferences({ ...preferences, numbers: !preferences.numbers });
+            }}
+            disabled={preferences.pronounceable}
           />
         </Setting>
 
@@ -160,9 +176,11 @@ const PasswordGeneratorMain: React.FC = () => {
           <label>Include Symbols</label>
           <CheckBox
             data-test-id="symbols"
-            checked={symbols}
-            onChange={() => setSymbols(!symbols)}
-            disabled={pronounceable}
+            checked={preferences.symbols}
+            onChange={() => {
+              setPreferences({ ...preferences, symbols: !preferences.symbols });
+            }}
+            disabled={preferences.pronounceable}
           />
         </Setting>
       </div>
@@ -171,7 +189,7 @@ const PasswordGeneratorMain: React.FC = () => {
         type="submit"
         data-test-id="generatePasswordButton"
       >
-        Generated Password
+        Generate Password
       </GeneratePasswordButton>
       <ToastContainer />
     </Container>
