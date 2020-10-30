@@ -1,10 +1,16 @@
 describe('Generate password tests', () => {
+  it('should generate exacly 15 characters', () => {
+    cy.visit('/');
+    cy.getByTestId('passwordLengthInput').type('{selectall}15');
+    cy.getByTestId('generatePasswordButton').click();
+    cy.getByTestId('resultSpan').invoke('val').should('lengthOf', 15);
+  });
+
   it('should generate only uppercase letters', () => {
     cy.visit('/');
     cy.getByTestId('passwordLengthInput').type('{selectall}7');
     cy.getByTestId('numbers').uncheck();
     cy.getByTestId('generatePasswordButton').click();
-    cy.getByTestId('generatePasswordButton');
     cy.getByTestId('resultSpan')
       .invoke('val')
       .should('match', /^[A-Z]{7}$/);
@@ -17,7 +23,6 @@ describe('Generate password tests', () => {
     cy.getByTestId('lowercase').check();
     cy.getByTestId('numbers').uncheck();
     cy.getByTestId('generatePasswordButton').click();
-    cy.getByTestId('generatePasswordButton');
     cy.getByTestId('resultSpan')
       .invoke('val')
       .should('match', /^[a-z]{7}$/);
