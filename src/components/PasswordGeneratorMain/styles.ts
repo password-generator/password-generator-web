@@ -4,7 +4,7 @@ import { lighten } from 'polished';
 
 export const Container = styled.form`
   background-color: ${(props) => props.theme.mainBlue};
-  box-shadow: 0px 2px 10px ${(props) => props.theme.gray};
+  box-shadow: 0 2px 10px ${(props) => props.theme.gray};
   padding: 18px;
   border-radius: 20px;
   width: 80%;
@@ -14,6 +14,36 @@ export const Title = styled.h2`
   font-size: 36px;
   margin: 10px 0 20px;
   text-align: center;
+`;
+
+export const PasswordStrength = styled.div`
+  color: ${(props) => props.theme.mainBlue};
+  font-weight: bolder;
+  background-color: ${(props) => {
+    const pass = props.title;
+    let background: string;
+
+    if (pass === undefined) {
+      background = props.theme.secondaryBlue;
+    } else if (pass === '') {
+      background = props.theme.secondaryBlue;
+    } else if (pass.substring(pass.length - 6, pass.length) === '(weak)') {
+      background = '#FA3333';
+    } else if (pass.substring(pass.length - 6, pass.length) === '(good)') {
+      background = '#FA6B33';
+    } else {
+      background = '#8ABC44';
+    }
+
+    return background;
+  }};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-size: 10px;
+  letter-spacing: 1px;
+  height: 15px;
 `;
 
 export const ResultContainer = styled.div`
@@ -28,6 +58,7 @@ export const ResultContainer = styled.div`
   height: 30px;
   width: 95%;
 `;
+
 export const ResultSpan = styled.input`
   background-color: ${(props) => lighten(0.1, props.theme.blackBlue)};
   color: #fff;
@@ -38,20 +69,10 @@ export const ResultSpan = styled.input`
   max-height: 23.2px;
   min-width: calc(100% - 35px);
   max-width: calc(100% - 40px);
+
   &::selection {
     background-color: ${(props) => props.theme.gray};
   }
-  /* overflow-y: hidden !important;
-  overflow-x: auto; */
-
-  /* &::-webkit-scrollbar {
-    height: 5px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.gray};
-    border-radius: 3px;
-  } */
 `;
 
 export const ResultCopyToClipboardButton = styled.button`
@@ -75,6 +96,7 @@ export const PasswordLengthInput = styled.input.attrs({
   max: '1024',
 })`
   font-size: 18px;
+
   &::-webkit-inner-spin-button {
     width: 15px;
     height: 35px;

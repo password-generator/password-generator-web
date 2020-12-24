@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { generatePassword } from '@password-generator/package';
 
 import ClipboardIcon from '../../clipboard-icon.png';
+import passwordStrengthChecker from '../../Helpers/passwordStrengthChecker';
 import {
   Container,
   Title,
@@ -16,10 +17,12 @@ import {
   GeneratePasswordButton,
   DefaultInitialTextInput,
   CheckBox,
+  PasswordStrength,
 } from './styles';
 
 const PasswordGeneratorMain: React.FC = () => {
   const [password, setPassword] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState('');
 
   const [preferences, setPreferences] = useState({
     initialText: '',
@@ -35,13 +38,14 @@ const PasswordGeneratorMain: React.FC = () => {
 
   const handleCopyToClipboard = () => {
     if (password) {
-      navigator.clipboard.writeText(password);
-      toast.success('Password was copied to your clipboard!');
+      navigator.clipboard.writeText(password).then(() => {
+        toast.success('Password was copied to your clipboard!');
+      });
     }
   };
 
   const handleToogleGeneratePronunceablePassword = () => {
-    if (preferences.pronounceable === false) {
+    if (!preferences.pronounceable) {
       setCachedSettings({
         ...preferences,
       });
@@ -74,7 +78,10 @@ const PasswordGeneratorMain: React.FC = () => {
           pronounceable: preferences.pronounceable,
         },
       });
-      if (passwordGenerated !== null) setPassword(passwordGenerated);
+      if (passwordGenerated !== null) {
+        setPassword(passwordGenerated);
+        setPasswordStrength(passwordStrengthChecker(passwordGenerated));
+      }
     } catch (error) {
       toast.error(error.message);
     }
@@ -94,6 +101,10 @@ const PasswordGeneratorMain: React.FC = () => {
           <img src={ClipboardIcon} alt="Copy" width={40} height={40} />
         </ResultCopyToClipboardButton>
       </ResultContainer>
+
+      <PasswordStrength title={passwordStrength.toString()}>
+        {passwordStrength}
+      </PasswordStrength>
 
       <div>
         <Setting>

@@ -122,10 +122,9 @@ sh ./scripts/run-tests.sh
 <h4 id="features-finished">🎇 Finished</h4>
 
 - [x] Generate pronounceable passwords
+- [x] Show password-strength
 
 <h4 id="features-pendent">🎆 Pendent</h4>
-
-- [ ] Show password-strength
 
 [Back To The Top](#title)
 
