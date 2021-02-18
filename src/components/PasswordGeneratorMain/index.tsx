@@ -40,7 +40,9 @@ const PasswordGeneratorMain: React.FC = () => {
     symbols: false,
   });
 
-  const [cachedSettings, setCachedSettings] = useState({ ...preferences });
+  const [cachedSettings, setCachedSettings] = useState({
+    ...preferences,
+  });
 
   const handleCopyToClipboard = () => {
     if (password) {
@@ -66,6 +68,8 @@ const PasswordGeneratorMain: React.FC = () => {
     } else {
       setPreferences({
         ...cachedSettings,
+        passwordLength: preferences.passwordLength,
+        initialText: preferences.initialText,
       });
     }
   };
@@ -161,8 +165,6 @@ const PasswordGeneratorMain: React.FC = () => {
             disabled={preferences.pronounceable}
           />
         </Setting>
-
-        {passwordStrength?.points}
 
         <Setting>
           <label>Include Lowercase Letters</label>
