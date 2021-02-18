@@ -41,17 +41,31 @@ export const ResultSpan = styled.input`
   &::selection {
     background-color: ${(props) => props.theme.gray};
   }
-  /* overflow-y: hidden !important;
-  overflow-x: auto; */
+`;
 
-  /* &::-webkit-scrollbar {
-    height: 5px;
-  }
+export const PasswordStrengthSpan = styled.span.attrs((props: any) => ({
+  type: 'number',
+  passwordPoints: props.passwordPoints || 0,
+}))`
+  color: ${(props) => props.theme.blackBlue};
+  font-weight: bolder;
+  background-color: ${(props) => {
+    let background: string;
 
-  &::-webkit-scrollbar-thumb {
-    background-color: ${(props) => props.theme.gray};
-    border-radius: 3px;
-  } */
+    if (props.passwordPoints === 0) background = props.theme.mainBlue;
+    else if (props.passwordPoints <= 25) background = 'red';
+    else if (props.passwordPoints <= 60) background = 'yellow';
+    else background = 'green';
+
+    return background;
+  }};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-size: 10px;
+  letter-spacing: 1px;
+  height: 15px;
 `;
 
 export const ResultCopyToClipboardButton = styled.button`
@@ -71,7 +85,7 @@ export const ResultCopyToClipboardButton = styled.button`
 
 export const PasswordLengthInput = styled.input.attrs({
   type: 'number',
-  min: '4',
+  min: '5',
   max: '1024',
 })`
   font-size: 18px;

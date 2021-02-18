@@ -2,6 +2,10 @@ import React, { useState, FormEvent } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import {
+  checkStrength,
+  CheckStrengthResult,
+} from '@password-generator/check-strength';
 import { generatePassword } from '@password-generator/package';
 
 import ClipboardIcon from '../../clipboard-icon.png';
@@ -16,10 +20,15 @@ import {
   GeneratePasswordButton,
   DefaultInitialTextInput,
   CheckBox,
+  PasswordStrengthSpan,
 } from './styles';
 
 const PasswordGeneratorMain: React.FC = () => {
   const [password, setPassword] = useState('');
+  const [
+    passwordStrength,
+    setPasswordStrength,
+  ] = useState<CheckStrengthResult | null>(null);
 
   const [preferences, setPreferences] = useState({
     initialText: '',
@@ -75,7 +84,10 @@ const PasswordGeneratorMain: React.FC = () => {
           pronounceable: preferences.pronounceable,
         },
       });
-      if (passwordGenerated) setPassword(passwordGenerated);
+      if (passwordGenerated) {
+        setPassword(passwordGenerated);
+        setPasswordStrength(checkStrength(passwordGenerated));
+      }
     } catch (error) {
       toast.error(error.message);
     }
@@ -95,6 +107,10 @@ const PasswordGeneratorMain: React.FC = () => {
           <img src={ClipboardIcon} alt="Copy" width={40} height={40} />
         </ResultCopyToClipboardButton>
       </ResultContainer>
+
+      <PasswordStrengthSpan passwordPoints={passwordStrength?.points}>
+        {passwordStrength?.range}
+      </PasswordStrengthSpan>
 
       <div>
         <Setting>
@@ -145,6 +161,8 @@ const PasswordGeneratorMain: React.FC = () => {
             disabled={preferences.pronounceable}
           />
         </Setting>
+
+        {passwordStrength?.points}
 
         <Setting>
           <label>Include Lowercase Letters</label>
