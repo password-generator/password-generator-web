@@ -35,13 +35,14 @@ const PasswordGeneratorMain: React.FC = () => {
 
   const handleCopyToClipboard = () => {
     if (password) {
-      navigator.clipboard.writeText(password);
-      toast.success('Password was copied to your clipboard!');
+      navigator.clipboard
+        .writeText(password)
+        .then(() => toast.success('Password was copied to your clipboard!'));
     }
   };
 
   const handleToogleGeneratePronunceablePassword = () => {
-    if (preferences.pronounceable === false) {
+    if (!preferences.pronounceable) {
       setCachedSettings({
         ...preferences,
       });
@@ -74,7 +75,7 @@ const PasswordGeneratorMain: React.FC = () => {
           pronounceable: preferences.pronounceable,
         },
       });
-      if (passwordGenerated !== null) setPassword(passwordGenerated);
+      if (passwordGenerated) setPassword(passwordGenerated);
     } catch (error) {
       toast.error(error.message);
     }
