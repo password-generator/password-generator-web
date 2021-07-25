@@ -58,6 +58,19 @@ export const ResultSpan = styled.input`
   }
 `;
 
+export const PasswordStrength = styled.div`
+  color: ${(props) => (props.color ? '#fffff' : props.theme.mainBlue)};
+  font-weight: bolder;
+  background-color: ${(props) => props.color};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-size: 10px;
+  letter-spacing: 1px;
+  height: 15px;
+`;
+
 export const ResultCopyToClipboardButton = styled.button`
   display: flex;
   align-items: center;
@@ -75,7 +88,7 @@ export const ResultCopyToClipboardButton = styled.button`
 
 export const PasswordLengthInput = styled.input.attrs({
   type: 'number',
-  min: '4',
+  min: '5',
   max: '1024',
 })`
   font-size: 18px;
