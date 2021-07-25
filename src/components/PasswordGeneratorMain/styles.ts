@@ -16,19 +16,6 @@ export const Title = styled.h2`
   text-align: center;
 `;
 
-export const PasswordStrength = styled.div`
-  color: ${(props) => (props.color ? '#fffff' : props.theme.mainBlue)};
-  font-weight: bolder;
-  background-color: ${(props) => props.color};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  font-size: 10px;
-  letter-spacing: 1px;
-  height: 15px;
-`;
-
 export const ResultContainer = styled.div`
   background-color: ${(props) => props.theme.blackBlue};
   display: flex;
