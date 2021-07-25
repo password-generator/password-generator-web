@@ -1,11 +1,11 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
+import { checkStrength } from '@password-generator/check-strength';
 import { generatePassword } from '@password-generator/package';
 
 import ClipboardIcon from '../../clipboard-icon.png';
-import passwordStrengthChecker from '../../Helpers/passwordStrengthChecker';
 import {
   Container,
   Title,
@@ -20,9 +20,50 @@ import {
   PasswordStrength,
 } from './styles';
 
+type IPasswordStrengthRange =
+  | 'Very Secure'
+  | 'Secure'
+  | 'Very Strong'
+  | 'Strong'
+  | 'Average'
+  | 'Weak'
+  | 'Very Weak'
+  | '';
+
+const passwordStrengthColor = (
+  passwordStrengthRange: IPasswordStrengthRange,
+): string => {
+  const color = {
+    red: '#FA3333',
+    orange: '#FA6B33',
+    green: '#8ABC44',
+  };
+  switch (passwordStrengthRange) {
+    case '':
+      return color.red;
+    case 'Very Weak':
+      return color.red;
+    case 'Weak':
+      return color.red;
+    case 'Average':
+      return color.orange;
+    case 'Strong':
+      return color.orange;
+    case 'Very Strong':
+      return color.orange;
+    case 'Secure':
+      return color.green;
+    case 'Very Secure':
+      return color.green;
+    default:
+      return color.red;
+  }
+};
+
 const PasswordGeneratorMain: React.FC = () => {
   const [password, setPassword] = useState('');
   const [passwordStrength, setPasswordStrength] = useState('');
+  const [passwordColor, setPasswordColor] = useState('');
 
   const [preferences, setPreferences] = useState({
     initialText: '',
@@ -64,7 +105,7 @@ const PasswordGeneratorMain: React.FC = () => {
     }
   };
 
-  const handleFormSubmit = (event: FormEvent) => {
+  const handleFormSubmit = (event: React.FormEvent<EventTarget>) => {
     event.preventDefault();
     try {
       const passwordGenerated = generatePassword({
@@ -80,7 +121,10 @@ const PasswordGeneratorMain: React.FC = () => {
       });
       if (passwordGenerated !== null) {
         setPassword(passwordGenerated);
-        setPasswordStrength(passwordStrengthChecker(passwordGenerated));
+        const { points, range } = checkStrength(passwordGenerated);
+        const color = passwordStrengthColor(range as IPasswordStrengthRange);
+        setPasswordStrength(`${points}% (${range})`);
+        setPasswordColor(color);
       }
     } catch (error) {
       toast.error(error.message);
@@ -102,7 +146,7 @@ const PasswordGeneratorMain: React.FC = () => {
         </ResultCopyToClipboardButton>
       </ResultContainer>
 
-      <PasswordStrength title={passwordStrength.toString()}>
+      <PasswordStrength color={passwordColor}>
         {passwordStrength}
       </PasswordStrength>
 

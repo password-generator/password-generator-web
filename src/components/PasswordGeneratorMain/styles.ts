@@ -17,26 +17,9 @@ export const Title = styled.h2`
 `;
 
 export const PasswordStrength = styled.div`
-  color: ${(props) => props.theme.mainBlue};
+  color: ${(props) => (props.color ? '#fffff' : props.theme.mainBlue)};
   font-weight: bolder;
-  background-color: ${(props) => {
-    const pass = props.title;
-    let background: string;
-
-    if (pass === undefined) {
-      background = props.theme.secondaryBlue;
-    } else if (pass === '') {
-      background = props.theme.secondaryBlue;
-    } else if (pass.substring(pass.length - 6, pass.length) === '(weak)') {
-      background = '#FA3333';
-    } else if (pass.substring(pass.length - 6, pass.length) === '(good)') {
-      background = '#FA6B33';
-    } else {
-      background = '#8ABC44';
-    }
-
-    return background;
-  }};
+  background-color: ${(props) => props.color};
   display: flex;
   justify-content: center;
   align-items: center;
