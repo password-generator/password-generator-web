@@ -125,7 +125,7 @@ sh ./scripts/run-tests.sh
 
 <h4 id="features-pendent">🎆 Pendent</h4>
 
-- [ ] Show password-strength
+- [x] Show password-strength
 
 [Back To The Top](#title)
 
