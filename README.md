@@ -123,9 +123,9 @@ sh ./scripts/run-tests.sh
 
 - [x] Generate pronounceable passwords
 
-<h4 id="features-pendent">🎆 Pendent</h4>
-
 - [x] Show password-strength
+
+<h4 id="features-pendent">🎆 Pendent</h4>
 
 [Back To The Top](#title)
 
