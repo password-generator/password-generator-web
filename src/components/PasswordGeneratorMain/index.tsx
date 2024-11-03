@@ -25,10 +25,8 @@ import {
 
 const PasswordGeneratorMain: React.FC = () => {
   const [password, setPassword] = useState('');
-  const [
-    passwordStrength,
-    setPasswordStrength,
-  ] = useState<CheckStrengthResult | null>(null);
+  const [passwordStrength, setPasswordStrength] =
+    useState<CheckStrengthResult | null>(null);
 
   const [preferences, setPreferences] = useState({
     initialText: '',
@@ -92,7 +90,7 @@ const PasswordGeneratorMain: React.FC = () => {
         setPassword(passwordGenerated);
         setPasswordStrength(checkStrength(passwordGenerated));
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.message);
     }
   };

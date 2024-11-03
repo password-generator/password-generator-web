@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:14-slim
 
 WORKDIR /app
 
@@ -6,5 +6,4 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 COPY . ./
 
-RUN apk add --no-cache git
-RUN yarn install --silent
+RUN yarn install

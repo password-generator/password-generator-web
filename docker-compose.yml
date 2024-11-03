@@ -15,9 +15,9 @@ services:
     command: yarn start
   e2e:
     container_name: password-generator-e2e
-    depends_on: 
+    depends_on:
       - web
-    build: 
+    build:
       context: .
       dockerfile: docker/e2e.dockerfile
     environment:
