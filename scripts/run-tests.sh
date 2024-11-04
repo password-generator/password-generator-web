@@ -1,1 +1,1 @@
-docker-compose run e2e
+docker compose run e2e

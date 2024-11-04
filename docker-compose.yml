@@ -1,15 +1,17 @@
-version: '3.7'
-
 services:
   web:
     container_name: password-generator-web
     build:
       context: .
       dockerfile: docker/app.dockerfile
+    ports:
+      - '3000:3000'
     environment:
       - PORT=3000
       - NODE_ENV=development
-      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - .:/app
+    restart: always
     network_mode: host
     stdin_open: true
     command: yarn start
