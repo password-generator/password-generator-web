@@ -4,8 +4,6 @@ services:
     build:
       context: .
       dockerfile: docker/app.dockerfile
-    ports:
-      - '3000:3000'
     environment:
       - PORT=3000
       - NODE_ENV=development
@@ -15,6 +13,7 @@ services:
     network_mode: host
     stdin_open: true
     command: yarn start
+
   e2e:
     container_name: password-generator-e2e
     depends_on:
